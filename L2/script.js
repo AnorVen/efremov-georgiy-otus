@@ -19,14 +19,20 @@ const fn3 = () => new Promise(resolve => {
 
 async function promiseReduce(asyncFunctions, reduce, initialValue) {
   let temp = initialValue;
-  asyncFunctions.forEach(item => {
-    let res = item();
-    let  result = res.then(res => res);
-console.log(111);
-    console.log(res);
-    console.log(initialValue);
-    temp += reduce(result, initialValue);
-  });
+  let tempAsyncFunctions = Promise.all([...asyncFunctions]);
+  console.log(tempAsyncFunctions);
+
+  tempAsyncFunctions.then(res =>
+    res.forEach(item => {
+      let res = item();
+      let result = res.then(res => res);
+      console.log(111);
+      console.log(res);
+      console.log(initialValue);
+      temp += reduce(result, initialValue);
+    }),
+  );
+
   return temp;
 }
 
