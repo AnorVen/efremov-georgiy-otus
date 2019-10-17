@@ -17,24 +17,16 @@ const fn3 = () => new Promise(resolve => {
   setTimeout(() => resolve(2), 4000);
 });
 
-async function promiseReduce(asyncFunctions, reduce, initialValue) {
-  let temp = initialValue;
-  let tempAsyncFunctions = Promise.all([...asyncFunctions]);
-  console.log(tempAsyncFunctions);
+function promiseReduce(asyncFunctions, reduce, initialValue) {
+   ([...asyncFunctions].forEach( async item=>{
+     let res = await item()
+     return await reduce(res, initialValue)
+    }
+  ));
 
-  tempAsyncFunctions.then(res =>
-    res.forEach(item => {
-      let res = item();
-      let result = res.then(res => res);
-      console.log(111);
-      console.log(res);
-      console.log(initialValue);
-      temp += reduce(result, initialValue);
-    }),
-  );
-
-  return temp;
 }
+
+
 
 promiseReduce(
   [fn0, fn1, fn2, fn3],
