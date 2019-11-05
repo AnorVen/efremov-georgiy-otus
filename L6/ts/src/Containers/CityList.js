@@ -1,15 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {itemsFetchData, getCityIdAction} from '../Actions';
+import { itemsFetchData, getCityIdAction } from '../Actions';
 import PropTypes from 'prop-types';
-import {createSelector} from 'reselect';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { createSelector } from 'reselect';
 
 const List = styled.ul`
   visibility: ${(p) => (p.show ? 'visible' : 'hidden')};
@@ -35,19 +29,13 @@ class CityList extends Component {
 
   render() {
     console.log('CityList render');
-    const {list} = this.props;
+    const { list } = this.props;
     return (
       <List show={this.props.targetCountry === list[0]}>
         {list[1].map((item, i) => (
           <li key={i} onClick={() => this.checkCity(item.id)}>
-            <div>
-              {console.log(`CityList render ${item.title}`)}
-              {item.title}
-            </div>
-
-          <Link to={`/${item.title}`}>
+            {console.log(`CityList render ${item.title}`)}
             {item.title}
-          </Link>
           </li>
         ))}
       </List>

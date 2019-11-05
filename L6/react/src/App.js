@@ -1,19 +1,22 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import styled from 'styled-components';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import PropTypes from 'prop-types'
+
+import {ConnectedRouter} from 'connected-react-router'
 import TargetList from './Containers/TargetList';
 import Details from './Components/Details';
 import Header from './Containers/Header';
-import rootReducer from './Redusers';
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(logger, thunk))
-);
+import createRootReducer from './Redusers';
+import Home from "./Components/Home";
+import NotFound from "./Components/404";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const Main = styled.div`
   background-color: #eee;
@@ -26,19 +29,30 @@ const Content = styled.div`
   align-items: flex-start;
 `;
 
-const App = () => {
+const App = ({history}) => {
   console.log('App render');
   return (
-    <Provider store={store}>
-      <Main>
-        <Header />
-        <Content>
-          <TargetList />
-          <Details />
-        </Content>
-      </Main>
-    </Provider>
+    <Router>
+      <ConnectedRouter history={history}>
+        <Main>
+          <Header/>
+          <Content>
+            <TargetList/>
+            <Switch>
+              <Route exact path="/" component={()=> <Home/>}/>
+              <Route path="/:title" component={()=><Details/>}/>
+              <Route path="*" component={()=> <NotFound/>}/>
+            </Switch>
+          </Content>
+        </Main>
+      </ConnectedRouter>
+    </Router>
+
+
   );
 };
 
+App.propTypes = {
+  history: PropTypes.object,
+}
 export default App;

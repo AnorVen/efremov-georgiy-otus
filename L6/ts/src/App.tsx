@@ -1,35 +1,45 @@
-import React from 'react'
-// import * as styled from 'styled-components';
-//
-// const HeaderContent = styled.div`
-// 	height: 50px;
-// 	background-color: #858585;
-// `;
-// const Wrapper = styled.div`
-// 	margin: 0 auto;
-// 	display: flex;
-// 	max-width: 1200px;
-// 	padding-left: 50px;
-// 	padding-right: 50px;
-// 	justify-content: space-between;
-// 	align-items: flex-start;
-// `;
+import React from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import styled from 'styled-components';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import TargetList from './Containers/TargetList';
+import Details from './Components/Details';
+import Header from './Containers/Header';
+import rootReducer from './Redusers';
 
-interface IAppProps {
-  title: string;
-}
 
-export const App = (props: IAppProps) => (
-    <div>
-      <div>
-        <p>Header</p>
-        <div>
-          {props.title}
-        </div>
-      </div>
-    </div>
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(logger, thunk))
+);
+
+const Main = styled.div`
+  background-color: #eee;
+  color: #000;
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+`;
+
+const App = () => {
+  console.log('App render');
+  return (
+    <Provider store={store}>
+      <Main>
+        <Header />
+        <Content>
+          <TargetList />
+          <Details />
+        </Content>
+      </Main>
+    </Provider>
   );
+};
 
-
-
-
+export default App;
