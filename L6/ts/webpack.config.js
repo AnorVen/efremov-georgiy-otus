@@ -1,8 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const webpack = require('webpack'); //to access built-in plugins
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components')
+  .default;
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
 module.exports = {
@@ -10,10 +11,10 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js'
+    filename: 'app.js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -21,7 +22,7 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /(node_modules)/,
         use: [
-/*
+          /*
           {
             loader: 'babel-loader',
             options: {
@@ -37,20 +38,15 @@ module.exports = {
             }
           },*/
           {
-            loader: "awesome-typescript-loader",
+            loader: 'awesome-typescript-loader',
             options: {
-              "plugins": [
-                [
-                  "babel-plugin-styled-components",
-                  {
-                    "ssr": false
-                  }
-                ]
-              ],
-              getCustomTransformers: () => ({before: [styledComponentsTransformer]})
-            }
-          }
-        ]
+              plugins: [['babel-plugin-styled-components']],
+              getCustomTransformers: () => ({
+                before: [styledComponentsTransformer],
+              }),
+            },
+          },
+        ],
       },
       {
         test: /\.jsx?$/,
@@ -59,28 +55,29 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
-            "plugins": ["@babel/plugin-transform-react-constant-elements",
-              "@babel/plugin-transform-react-display-name",
-              "@babel/plugin-transform-react-inline-elements",
-              "@babel/plugin-transform-react-jsx",
-              "@babel/plugin-transform-react-jsx-compat",
-              "@babel/plugin-transform-react-jsx-self",
-              "@babel/plugin-transform-react-jsx-source"
-            ]
-          }
-        }
-      }
+            plugins: [
+              '@babel/plugin-transform-react-constant-elements',
+              '@babel/plugin-transform-react-display-name',
+              '@babel/plugin-transform-react-inline-elements',
+              '@babel/plugin-transform-react-jsx',
+              '@babel/plugin-transform-react-jsx-compat',
+              '@babel/plugin-transform-react-jsx-self',
+              '@babel/plugin-transform-react-jsx-source',
+            ],
+          },
+        },
+      },
     ],
   },
   devtool: 'inline-source-map',
 
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({template: './index.html'})
+    new HtmlWebpackPlugin({ template: './index.html' }),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: false,
-    port: 9000
-  }
-}
+    port: 9000,
+  },
+};
