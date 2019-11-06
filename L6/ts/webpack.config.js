@@ -49,23 +49,35 @@ module.exports = {
         ],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              '@babel/plugin-transform-react-constant-elements',
-              '@babel/plugin-transform-react-display-name',
-              '@babel/plugin-transform-react-inline-elements',
-              '@babel/plugin-transform-react-jsx',
-              '@babel/plugin-transform-react-jsx-compat',
-              '@babel/plugin-transform-react-jsx-self',
-              '@babel/plugin-transform-react-jsx-source',
+              '@babel/plugin-transform-runtime',
+              'babel-plugin-styled-components',
+              '@babel/plugin-proposal-class-properties',
             ],
           },
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader?classPrefix',
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
     ],
   },
@@ -73,11 +85,13 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ template: './index.html' }),
+    new HtmlWebpackPlugin({ template: './public/index.html' }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: false,
     port: 9000,
+    historyApiFallback: true,
   },
 };
