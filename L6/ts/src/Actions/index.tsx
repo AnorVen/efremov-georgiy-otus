@@ -6,10 +6,16 @@ import {
   ERROR_REQUEST,
   GET_LIST,
   TARGET_COUNTRY,
+  IS_FAVORITE
 } from '../Constats';
 import { createSelector } from 'reselect';
 
 const apiKey = '108aecd085c5e10a193fa4d7440ba5cb';
+
+export const handleFavorites = (id)=>({
+  type: IS_FAVORITE,
+  payload: id
+})
 
 export const getListAction = () => ({
   type: GET_LIST,

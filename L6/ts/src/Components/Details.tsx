@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { createSelector } from 'reselect';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+import {getCityIdAction, itemsFetchData} from "../Actions";
+
 const Wrap = styled.div`
   width: 50%;
   padding: 0 30px;
@@ -13,6 +22,7 @@ const Details = ({ isLoad, result, error }) => {
   console.log('Details render');
   console.log(result);
   const rend = () => {
+    let { title } = useParams();
     if (isLoad) {
       return <p> Загрузка...</p>;
     }
@@ -25,7 +35,8 @@ const Details = ({ isLoad, result, error }) => {
       let tempData = result.list.slice(-8);
       return (
         <Fragment>
-          <p> {result.city && result.city.name}</p>
+          <h3>City: {title}</h3>
+        {/*<p> {result.city && result.city.name}</p>*/}
           <table>
             <tbody>
               {tempData &&
@@ -132,5 +143,14 @@ export default connect((state) => {
     isLoad: isLoadSelect(state),
     result: resultSelect(state),
     error: errorSelect(state),
+  };
+},  (dispatch) => {
+  return {
+    getDetails: () => {
+      dispatch(itemsFetchData());
+    },
+    getCityId: (id) => {
+      dispatch(getCityIdAction(id));
+    },
   };
 })(memo(Details));

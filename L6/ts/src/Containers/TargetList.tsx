@@ -5,6 +5,8 @@ import CityList from './CityList';
 import { getListAction } from '../Actions';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+
 const Wrap = styled.div`
   width: 50%;
   padding: 0 30px;

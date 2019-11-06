@@ -1,4 +1,4 @@
-import list from '../city.js';
+import list from '../city.tsx';
 import { GET_LIST } from '../Constats';
 
 const initialState = [];
