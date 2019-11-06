@@ -1,10 +1,13 @@
 import {combineReducers} from 'redux';
 import showWeatherOnCity from './showWeatherOnCity';
 import cityList from './cityList';
-import { connectRouter } from 'connected-react-router'
+import favorites from "./favorites";
+import {connectRouter} from 'connected-react-router'
+
 const createRootReducer = (history) => combineReducers({
     getDetails: showWeatherOnCity,
     cityList,
+    favorites,
     router: connectRouter(history),
   }
 );
