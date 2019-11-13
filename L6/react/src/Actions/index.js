@@ -15,22 +15,26 @@ const apiKey = '108aecd085c5e10a193fa4d7440ba5cb';
 export const handleFavorites = (id)=>({
   type: IS_FAVORITE,
   payload: id
-})
+});
 
 export const getListAction = () => ({
   type: GET_LIST,
 });
+
 export const getCityIdAction = (id) => ({
   type: GET_CITY,
   payload: id,
 });
+
 export const getDetailsREQUESTAction = () => ({
   type: GET_DETAILS_REQUEST,
 });
+
 export const getDateAction = (date) => ({
   type: GET_DATE,
   payload: date,
 });
+
 export const changeTargenCountry = (country) => ({
   type: TARGET_COUNTRY,
   payload: country,
@@ -40,6 +44,7 @@ export const itemsFetchDataSuccess = (item) => ({
   type: DETAILS,
   payload: item,
 });
+
 export const itemsHasErrored = (message) => ({
   type: ERROR_REQUEST,
   payload: message,

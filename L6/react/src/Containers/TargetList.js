@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Country from '../Components/Country';
 import CityList from './CityList';
+import FavoriteTogler from './FavoriteTogler'
 import { getListAction } from '../Actions';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -53,6 +54,7 @@ class TargetList extends Component {
 
     return (
       <Wrap>
+        <FavoriteTogler/>
         {arrOut.map((item, i) => (
           <div key={i}>
             <Country title={item[0]} />
