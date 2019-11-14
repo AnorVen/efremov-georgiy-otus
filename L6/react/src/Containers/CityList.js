@@ -8,11 +8,24 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
+
+const SmartLink = (props)=> {
+  const {url, ...rest} = props;
+  return (
+    url.match(/https/gi)
+      ? <a href={url} {...rest}>{this.props.children}</a>
+      : <Link to={url} {...rest}>{this.props.children}</Link>
+  )
+};
+
 
 const Btn = styled.button`
 `
+
+
 
 
 const List = styled.ul`
@@ -26,7 +39,7 @@ const Item = styled.li`
 display: flex;
 justify-content:space-between;
 margin: 10px;
-`
+`;
 
 class CityList extends Component {
   checkCity = (id) => {
@@ -37,32 +50,49 @@ class CityList extends Component {
   static defaultProps = {
     cityId: 0,
     list: [[], []],
+    favoritesList: []
   };
   static propTypes = {
     cityId: PropTypes.number,
     list: PropTypes.array,
+    favoritesList: PropTypes.array,
   };
   handleFavorit = (id) => {
     this.props.handleFavorites(id)
   }
 
   render() {
-    console.log('CityList render');
     const {list} = this.props;
     return (
+
       <List show={this.props.targetCountry === list[0]}>
-        {list[1].map((item, i) => (
-          <Item key={i} >
-            <Link to={`/${item.title}`} onClick={() => this.checkCity(item.id)}>
-              {console.log(`CityList render ${item.title}`)}
-              {item.title}
-            </Link>
-            <Btn onClick={() => this.handleFavorit(item.id)}>
-              { this.props.favoritesList.indexOf(item.id) !== -1
-                ? 'remove from favorites' : 'add to favorit'}
-            </Btn>
-          </Item>
-        ))}
+        {this.props.favorites.show ?
+          (list[1].map((item, i) => (
+              this.props.favorites.favorites.indexOf(item.id) !== -1 ?
+                <Item key={i} data-id={item.id}>
+                  <Link to={`/${item.title}`} onClick={() => this.checkCity(item.id)}>
+                    {item.title}
+                  </Link>
+                  <Btn onClick={() => this.handleFavorit(item.id)}>
+                    {this.props.favorites.favorites.indexOf(item.id) !== -1
+                      ? 'remove from favorites' : 'add to favorit'}
+                  </Btn>
+                </Item>
+            : null
+          )))
+          :
+          (list[1].map((item, i) => (
+            <Item key={i} data-id={item.id}>
+              <Link to={`/${item.title}`} onClick={() => this.checkCity(item.id)}>
+                {item.title}
+              </Link>
+              <Btn onClick={() => this.handleFavorit(item.id)}>
+                {this.props.favorites.favorites.indexOf(item.id) !== -1
+                  ? 'remove from favorites' : 'add to favorit'}
+              </Btn>
+            </Item>
+          )))
+        }
       </List>
     );
   }
@@ -74,14 +104,15 @@ const selectTargetCountry = createSelector(
 );
 const selectFavorites = createSelector(
   (state) => state.favorites,
-  (favoritesList) => favoritesList
+  (favorites) => favorites
 );
 
-export default connect(
+export default withRouter(
+connect(
   (state) => {
     return {
       targetCountry: selectTargetCountry(state),
-      favoritesList : selectFavorites(state)
+      favorites: selectFavorites(state)
     };
   },
   (dispatch) => {
@@ -97,4 +128,4 @@ export default connect(
       },
     };
   }
-)(CityList);
+)(CityList));
