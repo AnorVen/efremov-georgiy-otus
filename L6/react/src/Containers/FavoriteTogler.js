@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import styled from "styled-components";
-import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import {showFavorites} from "../Actions";
 
 const Wrap = styled.div`
     background-color: #33ffa3;
@@ -11,25 +11,34 @@ const Wrap = styled.div`
 `
 
 
-class FavoriteTogler extends Component {
-  render() {
-    return (
-      <Wrap>
-        показать избанное <input type="checkbox" onClick={this.props.toggleFavorites}/>
+const FavoriteTogler = ({favorite, toggleFavorites}) => {
+  const [checked, changeCheck] = useState(favorite.show)
+
+  useEffect(() => {
+    toggleFavorites(checked)
+  }, [checked])
+  return (
+    favorite.favorites.length ?
+     <Wrap>
+        показать избанное <input type="checkbox"
+                                 checked={checked}
+                                 onChange={() => changeCheck(!checked)}
+     />
       </Wrap>
-    );
-  }
+      :   <></>
+  );
 }
 
-const mapDispatchToProps = (store) => {
+
+const mapDispatchToProps = (dispatch) => {
   return {
-    toggleFavorites: () => (console.log(111))
+    toggleFavorites: (bool) => dispatch(showFavorites(bool))
   }
 }
 
 const mapStateToProps = (store) => {
   return {
-    favorite: store.
+    favorite: store.favorites
   };
 }
 

@@ -8,6 +8,7 @@ import {
   Switch,
   Route,
   Link,
+  withRouter,
   useParams
 } from "react-router-dom";
 import {getCityIdAction, itemsFetchData} from "../Actions";
@@ -138,7 +139,7 @@ const isLoadSelect = createSelector(
   (state) => state.getDetails.loading,
   (isLoad) => isLoad
 );
-export default connect((state) => {
+export default withRouter(connect((state) => {
   return {
     isLoad: isLoadSelect(state),
     result: resultSelect(state),
@@ -153,4 +154,4 @@ export default connect((state) => {
       dispatch(getCityIdAction(id));
     },
   };
-})(memo(Details));
+})(Details));

@@ -6,7 +6,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore, { history } from './Store'
 import {Provider} from "react-redux";
-import {ConnectedRouter} from "connected-react-router";
+import { syncHistoryWithStore } from 'react-router-redux'
+import { createHistory } from 'history';
+import { createBrowserHistory } from 'history';
+const history = createBrowserHistory()
+const location = history.location;
 
 const store = configureStore()
 const render = () => {
@@ -19,6 +23,11 @@ const render = () => {
 }
 
 render()
+
+syncHistoryWithStore(
+  createHistory(),
+  store,
+);
 
 if (module.hot) {
   // Reload components

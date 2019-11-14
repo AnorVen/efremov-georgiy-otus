@@ -3,7 +3,6 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types'
-
 import {ConnectedRouter} from 'connected-react-router'
 import TargetList from './Containers/TargetList';
 import Details from './Components/Details';
@@ -55,4 +54,7 @@ const App = ({history}) => {
 App.propTypes = {
   history: PropTypes.object,
 }
+
+
+
 export default App;
