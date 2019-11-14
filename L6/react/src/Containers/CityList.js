@@ -12,8 +12,20 @@ import {
   withRouter
 } from "react-router-dom";
 
+const SmartLink = (props)=> {
+  const {url, ...rest} = props;
+  return (
+    url.match(/https/gi)
+      ? <a href={url} {...rest}>{this.props.children}</a>
+      : <Link to={url} {...rest}>{this.props.children}</Link>
+  )
+};
+
+
 const Btn = styled.button`
 `
+
+
 
 
 const List = styled.ul`
