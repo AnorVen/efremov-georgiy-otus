@@ -1,0 +1,9 @@
+{
+  "extends":  [
+    "tslint:recommended",
+    "tslint-eslint-rules"
+  ],
+  "jsRules": {},
+  "rules": {},
+  "rulesDirectory": []
+}
