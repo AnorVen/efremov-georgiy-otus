@@ -82,13 +82,16 @@ class App extends React.Component {
   }
   editGuest =({withOne, name, id})=> {
     const index = this.state.guests.findIndex((item)=> item.id === id)
-    const newGuests = this.state.guests.splice(index, 1, {
+    console.log(index)
+    const tempArr = [...this.state.guests];
+    tempArr[index] =
+    {
       id,
-      name,
-      withOne
-    })
+        name,
+        withOne
+    }
     this.setState({
-      guests:newGuests
+      guests: tempArr
     })
   }
 
