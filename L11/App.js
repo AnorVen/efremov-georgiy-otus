@@ -1,5 +1,9 @@
 import React from 'react';
-var firebase = require('firebase/app');
+import firebase from 'firebase/app';
+
+import * as auth from 'firebase/auth';
+import * as db from 'firebase/database';
+import * as storage from 'firebase/storage';
 
 import {
   SafeAreaView,
