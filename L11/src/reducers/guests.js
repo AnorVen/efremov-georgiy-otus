@@ -9,7 +9,8 @@ export const initialState = {
       id: 1,
       name: 'Petiya',
       withOne: true
-    }]
+    }],
+  guestCounter: 3,
 }
 
 export const guestReducer = (state = initialState, action)=>{

@@ -1,5 +1,6 @@
 export const initialState = {
-  user: {}
+    auth: false,
+    name: ''
 }
 
 export const userReducer = (state = initialState, action)=>{
