@@ -19,7 +19,7 @@ import {
 
 import List from "./src/components/List";
 import {store} from "./src/store/configureStore";
-import {Provider,connect} from "react-redux";
+import {Provider, connect} from "react-redux";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUTtcjk7Q6J8pVnvK5vJpcFQ6CFIq8TzQ",
@@ -37,26 +37,21 @@ if (!firebase.apps.length) {
 class App extends Component {
 
 
-  render(){
-
+  render() {
     return (
       <>
-      <Provider store={store}>
+        <Provider store={store}>
+          <StatusBar barStyle="dark-content"/>
+          <SafeAreaView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
 
-        <StatusBar barStyle="dark-content"/>
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-<View>
-  111
-</View>
+              <List/>
+            </ScrollView>
+          </SafeAreaView>
 
-
-          </ScrollView>
-        </SafeAreaView>
-
-      </Provider>
+        </Provider>
       </>
     );
   }
@@ -66,8 +61,8 @@ class App extends Component {
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#e2e2e2',
-    minHeight: 100,
+    minHeight: '100%',
   },
 });
 
-export default connect({},{})(App)
+export default App;

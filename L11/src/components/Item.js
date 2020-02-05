@@ -1,8 +1,19 @@
 import React from "react";
-import {Button, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, StyleSheet, Text, TextInput, View, Keyboard} from "react-native";
 import {connect} from 'react-redux'
 import {editGuest, removeGuest} from "../actions";
-import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'react-native-check-box'
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+  },
+})
+
 class Item extends React.Component {
   state = {
     edit: false,
@@ -10,18 +21,53 @@ class Item extends React.Component {
     withOne: this.props.item.withOne
   }
 
-  editHandler = () => {
+  editGuest = () => {
     const {withOne, name} = this.state;
-    this.props.editGuest({withOne, name, id: this.props.item.id})
     this.setState({
       edit: false
-    })
-  }
-  deletHandler = ()=>{
-    this.props.deleteHandler({ id: this.props.item.id})
+    }, ()=>this.props.editGuest({withOne, name, id: this.props.item.id}))
   }
 
-  render(){
+  deleteGuest = ()=>{
+    this.props.deleteGuest(this.props.item.id)
+  }
+
+  checkBoxHandler = ()=>{
+    const {withOne} = this.state;
+    this.setState({
+      withOne: !withOne
+    }, ()=>this.props.editGuest({
+      withOne: this.state.withOne,
+      name: this.state.name,
+      id: this.props.item.id
+    }))
+  }
+
+  keyboardDidHide= () =>{
+    console.log(this.state.name)
+    if (!!this.state.name) {
+      this.editGuest()
+    } else {
+      this.deleteGuest()
+    }
+  }
+
+
+  deleteGuest = ()=>{
+    this.props.deleteGuest(this.props.item.id)
+  }
+
+  componentDidMount() {
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this.keyboardDidHide,
+    );
+  };
+  componentWillUnmount(): void {
+    this.keyboardDidHideListener.remove();
+  }
+
+  render() {
     return (
       <>
         {this.state.edit
@@ -32,17 +78,19 @@ class Item extends React.Component {
                          this.setState({
                            name: text
                          })
-                       }}/>
-            <CheckBox style={styles.title}
-                      value={this.state.withOne}
-                    onPress={() => {
-                      this.setState({
-                        withOne: !this.state.withOne
-                      })
-                    }}
+                       }}
+                       onSubmitEditing={Keyboard.dismiss}
             />
-            <Button style={styles.title}
-                    onPress={() => this.editHandler()} title={'Применить'}/>
+            <CheckBox
+              style={{flex: 1, padding: 10}}
+              onClick={()=>{
+                this.setState({
+                  withOne:!this.state.withOne
+                })
+              }}
+              isChecked={this.state.withOne}
+              leftText={"With One"}
+            />
           </View>)
           : (<View style={styles.item}
                    onLongPress={() => {
@@ -52,50 +100,26 @@ class Item extends React.Component {
                   onLongPress={() => {
                     this.setState({edit: true})
                   }}>{this.state.name}</Text>
-            <View>
-              <CheckBox
-                value={this.state.withOne}
-                disabled={false}
-                onChange={()=>this.setState({withOne: !this.state.withOne})}
-              />
-              <Text style={styles.title}
-                    onLongPress={() => {
-                      this.setState({edit: true})
-                    }}
-              >{
-                this.state.withOne
-                  ? 'с парой'
-                  : 'без пары'}
-              </Text>
-            </View>
+            <CheckBox
+              style={{flex: 1, padding: 10}}
+              onClick={()=>this.checkBoxHandler()}
+              isChecked={this.state.withOne}
+              leftText={"With One"}
+            />
             <Button style={styles.title}
-                    onPress={() => this.deletHandler()} title={'Удалить'}/>
-
+                    onPress={() => this.deleteGuest()} title={'Delete'}/>
           </View>)
         }
       </>
     )
   }
 };
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-  },
-  title: {
-    fontSize: 24,
-  },
-});
 
-const mapStateToProps = store => {
-}
+const mapStateToProps = store => ({})
 const mapDispatchToProps = dispatch => {
   return {
-    editGuest: guest => (guest.name
-      ? dispatch(editGuest(guest))
-      : dispatch(removeGuest(guest))),
-    deleteHandler: guest => removeGuest(guest)
+    editGuest: guest => dispatch(editGuest(guest)),
+    deleteGuest: id => dispatch(removeGuest(id))
   }
 }
 
