@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {connect} from 'react-reduxt';
+import {connect} from 'react-redux';
 import {Button, FlatList, StyleSheet, Text, TextInput, View} from "react-native";
+import {editGuest, removeGuest} from "../actions";
+import Item from "./Item";
 
 
 class List extends Component{
@@ -20,7 +22,7 @@ class List extends Component{
   onBtnHandler = () => {
   if (!!this.state.text) {
     const newGuests = [...this.props.guests, {
-      id: this.props.guests[this.props.guests.length - 1].id + 1,
+      id: this.props.guests ? this.props.guests[this.props.guests.length - 1].id + 1 : 0,
       name: this.state.text,
       withOne: this.state.checkbox
     }]
@@ -30,7 +32,7 @@ class List extends Component{
       text: '',
       checkbox: false,
       guests: newGuests
-    }, () => this.guestCounterHandler())
+    })
   }
 };
 
@@ -49,6 +51,8 @@ class List extends Component{
 
 
   render() {
+    const {guests} = this.props;
+    const {filter} = this.state;
     return (
       <View>
         <Text>{this.props.guestCounter}</Text>
@@ -90,11 +94,12 @@ class List extends Component{
         </View>
 
         <View>
-          <FlatList
+          44awfawfawf
+       {/*   <FlatList
             data={guests}
             renderItem={({item, i}) => <Item item={item}/>}
             keyExtractor={item => item.name}
-          />
+          />*/}
         </View>
       </View>
     );
@@ -169,5 +174,17 @@ const styles = StyleSheet.create({
 });
 
 
+const mapStateToProps = store => {
+  return {
+    guests: store.guests.guests,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    editGuest: guest => (guest.name
+      ? dispatch(editGuest(guest))
+      : dispatch(removeGuest(guest)))
+  }
+}
 
-export default connect({},{})(List)
+export default connect(mapStateToProps,mapDispatchToProps)(List)

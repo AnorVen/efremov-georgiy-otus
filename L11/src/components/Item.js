@@ -1,8 +1,8 @@
 import React from "react";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import {connect} from 'react-redux'
-import {editGuest, removeGuest} from "../actions/guestsActions";
-
+import {editGuest, removeGuest} from "../actions";
+import CheckBox from '@react-native-community/checkbox';
 class Item extends React.Component {
   state = {
     edit: false,
@@ -17,6 +17,9 @@ class Item extends React.Component {
       edit: false
     })
   }
+  deletHandler = ()=>{
+    this.props.deleteHandler({ id: this.props.item.id})
+  }
 
   render(){
     return (
@@ -30,15 +33,14 @@ class Item extends React.Component {
                            name: text
                          })
                        }}/>
-            <Button style={styles.title}
+            <CheckBox style={styles.title}
+                      value={this.state.withOne}
                     onPress={() => {
                       this.setState({
                         withOne: !this.state.withOne
                       })
                     }}
-                    title={this.state.withOne
-                      ? 'с парой'
-                      : 'без пары'}/>
+            />
             <Button style={styles.title}
                     onPress={() => this.editHandler()} title={'Применить'}/>
           </View>)
@@ -50,15 +52,25 @@ class Item extends React.Component {
                   onLongPress={() => {
                     this.setState({edit: true})
                   }}>{this.state.name}</Text>
-            <Text style={styles.title}
-                  onLongPress={() => {
-                    this.setState({edit: true})
-                  }}
-            >{
-              this.state.withOne
-                ? 'с парой'
-                : 'без пары'}
-            </Text>
+            <View>
+              <CheckBox
+                value={this.state.withOne}
+                disabled={false}
+                onChange={()=>this.setState({withOne: !this.state.withOne})}
+              />
+              <Text style={styles.title}
+                    onLongPress={() => {
+                      this.setState({edit: true})
+                    }}
+              >{
+                this.state.withOne
+                  ? 'с парой'
+                  : 'без пары'}
+              </Text>
+            </View>
+            <Button style={styles.title}
+                    onPress={() => this.deletHandler()} title={'Удалить'}/>
+
           </View>)
         }
       </>
@@ -82,7 +94,8 @@ const mapDispatchToProps = dispatch => {
   return {
     editGuest: guest => (guest.name
       ? dispatch(editGuest(guest))
-      : dispatch(removeGuest(guest)))
+      : dispatch(removeGuest(guest))),
+    deleteHandler: guest => removeGuest(guest)
   }
 }
 
