@@ -1,10 +1,4 @@
 import React, {Component} from 'react';
-import * as firebase from 'firebase/app';
-
-import * as auth from 'firebase/auth';
-import * as db from 'firebase/database';
-import * as storage from 'firebase/storage';
-
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,9 +11,22 @@ import {
   FlatList,
 } from 'react-native';
 
-import List from "./src/components/List";
+
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator, createAppContainer} from '@react-navigation/stack';
+
+
+import firebase from 'firebase';
+
+
 import {store} from "./src/store/configureStore";
 import {Provider, connect} from "react-redux";
+import List from "./src/components/List";
+import Main from "./src/pages/main";
+import LoginPage from "./src/pages/login";
+import Nav from "./src/components/navigation";
+import Navigation from "./src/Navigation";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUTtcjk7Q6J8pVnvK5vJpcFQ6CFIq8TzQ",
@@ -30,39 +37,37 @@ const firebaseConfig = {
   messagingSenderId: "429740294393",
   appId: "1:429740294393:web:94d81d2285ee0464bb6228"
 };
-if (!firebase.apps.length) {
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
-}
 
 class App extends Component {
+/*
+  componentDidMount(): void {
+    firebase.initializeApp(firebaseConfig);
 
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().languageCode = 'ru'
+    provider.addScope('profile');
+    provider.addScope('https://www.googleapis.com/auth/drive');
+    firebase.auth().signInWithRedirect(provider);
+    //add the code below to your previous lines
+    firebase.auth().getRedirectResult().then(function(authData) {
+      console.log(authData);
+    }).catch(function(error) {
+      console.log(error);
+    });
+
+  }
+*/
 
   render() {
     return (
-      <>
         <Provider store={store}>
-          <StatusBar barStyle="dark-content"/>
-          <SafeAreaView>
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}>
-
-              <List/>
-            </ScrollView>
-          </SafeAreaView>
-
+          <Navigation/>
         </Provider>
-      </>
     );
   }
 }
 
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: '#e2e2e2',
-    minHeight: '100%',
-  },
-});
+
 
 export default App;
