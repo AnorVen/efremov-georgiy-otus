@@ -1,0 +1,14 @@
+export const ADD_GUEST = 'ADD_GUEST'
+export const EDIT_GUEST = 'EDIT_GUEST'
+export const REMOVE_GUEST = 'REMOVE_GUEST'
+
+export const FETCHING_GUESTS = 'FETCHING_GUESTS'
+
+export const LOGIN_WITH_EMAIL = 'LOGIN_WITH_EMAIL'
+export const LOGIN_WITH_GOOGLE = 'LOGIN_WITH_GOOGLE'
+export const SIGNING_IN_PROGRESS = 'SIGNING_IN_PROGRESS'
+
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+
+
