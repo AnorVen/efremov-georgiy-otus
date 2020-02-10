@@ -26,21 +26,12 @@ const Content = styled.div`
 const App = ({ history }) => {
   console.log('App render');
   return (
-    <Router>
-      <ConnectedRouter history={history}>
-        <Main>
-          <Header />
-          <Content>
-            <TargetList />
-            <Switch>
-              <Route exact path='/' component={() => <Home />} />
-              <Route path='/:title' component={() => <Details />} />
-              <Route path='*' component={() => <NotFound />} />
-            </Switch>
-          </Content>
-        </Main>
-      </ConnectedRouter>
-    </Router>
+    <Main>
+      <Header />
+      <Content>
+        <TargetList />
+      </Content>
+    </Main>
   );
 };
 

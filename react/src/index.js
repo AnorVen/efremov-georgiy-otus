@@ -7,17 +7,17 @@ import * as serviceWorker from './serviceWorker';
 import configureStore, { history } from './Store';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-const location = history.location;
 
 import * as firebase from 'firebase/app';
 import auth from 'firebase/auth';
 import firestore from 'firebase/firestore';
 
+const location = history.location;
 const store = configureStore();
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App history={history} />
+      <App />
     </Provider>,
     document.getElementById('root')
   );
@@ -38,8 +38,6 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-syncHistoryWithStore(createHistory(), store);
 
 if (module.hot) {
   // Reload components
