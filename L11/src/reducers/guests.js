@@ -5,7 +5,7 @@ import {
   FETCHING_GUESTS,
   GUESTS_COUNTER,
   REMOVE_GUEST
-} from "../actions/constatns";
+} from "../constatns";
 
 export const initialState = [
     {

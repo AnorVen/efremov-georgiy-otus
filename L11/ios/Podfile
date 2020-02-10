@@ -34,6 +34,8 @@ target 'L11' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'GoogleSignIn', '~> 5.0.2'
+
   # add pods for desired Firebase products
   # https://firebase.google.com/docs/ios/setup#available-pods
 

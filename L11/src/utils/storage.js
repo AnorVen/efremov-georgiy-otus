@@ -9,6 +9,14 @@ export const saveToken = async token => {
     console.log(e);
   }
 };
+export const removeToken = async () => {
+  try {
+    return await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 
 export const loadToken = async () => {
   try {

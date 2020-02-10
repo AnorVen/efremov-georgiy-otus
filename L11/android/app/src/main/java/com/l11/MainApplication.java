@@ -9,6 +9,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,6 +28,14 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new MyReactNativePackage());
           return packages;
         }
+
+        @Override
+            protected List<ReactPackage> getPackages() {
+              return Arrays.<ReactPackage>asList(
+                  new MainReactPackage(),
+                  new RNGoogleSigninPackage() // <-- this needs to be in the list
+              );
+            }
 
         @Override
         protected String getJSMainModuleName() {
