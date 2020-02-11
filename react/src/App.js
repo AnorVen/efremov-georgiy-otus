@@ -8,8 +8,10 @@ import { ConnectedRouter } from 'connected-react-router';
 import Header from './Containers/Header';
 import createRootReducer from './Redusers';
 import { history } from './Store';
-import Home from './Components/Home';
+import HomePage from './pages/index';
 import NotFound from './pages/404';
+import Auth from './pages/auth';
+
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const Main = styled.div`
@@ -33,7 +35,8 @@ const App = () => {
           <Header />
           <Content>
             <Switch>
-              <Route exact path='/' component={() => <Home />} />
+              <Route exact path='/' component={() => <HomePage />} />
+              <Route exact path='/auth' component={() => <Auth />} />
               <Route path='*' component={() => <NotFound />} />
             </Switch>
           </Content>

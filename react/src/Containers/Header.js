@@ -36,6 +36,7 @@ class Header extends Component {
           <p>Header</p>
           <FlexRow>
             <Link to={'/'}>Home</Link>
+            <Link to={'/auth'}>Auth</Link>
             <Link to={'/explore'}>Explore</Link>
             <Link to={'/profile'}>Profile</Link>
           </FlexRow>

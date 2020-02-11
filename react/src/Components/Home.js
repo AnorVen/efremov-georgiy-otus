@@ -19,7 +19,7 @@ class Home extends Component {
         <NewPost />
         {posts &&
           posts.posts.map((item, i) => {
-            return <Post key={item} {...item} />;
+            return <Post key={item.date} {...item} />;
           })}
       </Wrap>
     );

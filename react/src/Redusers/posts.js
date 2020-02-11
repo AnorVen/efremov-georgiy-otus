@@ -13,7 +13,7 @@ import {
 } from '../Constats';
 
 const initialState = {
-  posts: [{ text: 'awfawf' }],
+  posts: [{ text: 'awfawf', date: 1581457505755 }],
   error: false,
   loading: false,
 };
