@@ -1,8 +1,5 @@
 import React from 'react';
+import Home from '../Components/Home';
 export default function Index() {
-  return (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
-  );
+  return <Home />;
 }

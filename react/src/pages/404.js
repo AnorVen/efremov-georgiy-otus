@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 export default () => (
   <div id='message'>
     <h2>404</h2>

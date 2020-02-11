@@ -8,6 +8,7 @@ import {
   TARGET_COUNTRY,
   IS_FAVORITE,
   SHOW_FAVORITE,
+  ADD_POST,
 } from '../Constats';
 
 const apiKey = '108aecd085c5e10a193fa4d7440ba5cb';
@@ -106,3 +107,8 @@ export const itemsFetchData = () => (dispatch, getState) => {
     })
     .catch((e) => dispatch(itemsHasErrored(e)));
 };
+
+export const addPost = (post) => ({
+  type: ADD_POST,
+  payload: post,
+});

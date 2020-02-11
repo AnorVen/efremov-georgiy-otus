@@ -1,18 +1,15 @@
-import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import configureStore, { history } from './Store';
+import configureStore from './Store';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
 
 import * as firebase from 'firebase/app';
 import auth from 'firebase/auth';
 import firestore from 'firebase/firestore';
 
-const location = history.location;
 const store = configureStore();
 const render = () => {
   ReactDOM.render(

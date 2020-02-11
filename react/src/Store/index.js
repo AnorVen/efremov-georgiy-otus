@@ -3,9 +3,10 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from '../Redusers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-export const history = createBrowserHistory();
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+
+export const history = createBrowserHistory();
 
 export default function configureStore(preloadedState) {
   const store = createStore(
