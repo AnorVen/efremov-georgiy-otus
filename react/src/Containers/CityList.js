@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { itemsFetchData, getCityIdAction, handleFavorites } from '../Actions';
+import {
+  itemsFetchData,
+  getCityIdAction,
+  handleFavorites,
+} from '../Actions/posts';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 import {

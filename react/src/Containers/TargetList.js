@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Country from '../Components/Country';
 import CityList from './CityList';
 import FavoriteTogler from './FavoriteTogler';
-import { getListAction } from '../Actions';
+import { getListAction } from '../Actions/posts';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPost } from '../Actions';
+import { addPost } from '../Actions/posts';
 import styled from 'styled-components';
 
 const PreveiwImage = styled.img`

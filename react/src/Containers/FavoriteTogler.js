@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { showFavorites } from '../Actions';
+import { showFavorites } from '../Actions/posts';
 
 const Wrap = styled.div`
   background-color: #33ffa3;

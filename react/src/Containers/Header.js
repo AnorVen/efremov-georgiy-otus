@@ -1,7 +1,7 @@
 import React, { Component, memo } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { getDateAction, itemsFetchData } from '../Actions';
+import { getDateAction, itemsFetchData } from '../Actions/posts';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
