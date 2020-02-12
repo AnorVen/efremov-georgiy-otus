@@ -1,5 +1,6 @@
-import auth from 'firebase/auth';
-import storage from 'firebase/storage';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/storage';
 
 import {
   DELETE_USER,
@@ -12,21 +13,46 @@ import {
   REQUEST_USER,
 } from '../Constats';
 
-export const logout = () => ({
-  type: LOGOUT,
+export const requestUser = () => ({
+  type: REQUEST_USER,
+});
+export const errorRequestUser = (error) => ({
+  type: ERROR_REQUEST_USER,
+  payload: error,
 });
 
+export const currentUser = () => (dispatch, getState) => {
+  console.log(firebase.auth().currentUser);
+};
+export const logout = () => (dispatch, getState) => {
+  firebase
+    .auth()
+    .signOut()
+    .then(function() {
+      console.log(1);
+      console.log(firebase.auth().currentUser);
+      // Sign-out successful.
+    })
+    .catch(function(error) {
+      // An error happened.
+      dispatch(errorRequestUser(error));
+    });
+  return dispatch({ type: LOGOUT });
+};
+
 export const login = ({ email, password }) => (dispatch, getState) => {
+  console.log(email);
+  console.log(password);
+  dispatch(requestUser());
   let store = getState();
-  auth()
+  firebase
+    .auth()
     .signInWithEmailAndPassword(email, password)
     .catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
+      dispatch(errorRequestUser(error));
     });
-  auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function(user) {
     console.log(user);
     if (user) {
       // User is signed in.
@@ -45,16 +71,16 @@ export const login = ({ email, password }) => (dispatch, getState) => {
   });
 };
 export const createUser = ({ email, password }) => (dispatch, getState) => {
+  console.log('creacte');
   let store = getState();
-  auth()
+  dispatch(requestUser());
+  firebase
+    .auth()
     .createUserWithEmailAndPassword(email, password)
     .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
+      dispatch(errorRequestUser(error));
     });
-  auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function(user) {
     console.log(user);
     if (user) {
       // User is signed in.
@@ -71,4 +97,50 @@ export const createUser = ({ email, password }) => (dispatch, getState) => {
       // ...
     }
   });
+};
+
+export const updateUser = () => (dispatch, getState) => {
+  dispatch(requestUser());
+  var user = firebase.auth().currentUser;
+
+  user
+    .updateProfile({
+      displayName: 'Jane Q. User',
+      photoURL: 'https://example.com/jane-q-user/profile.jpg',
+    })
+    .then(function() {
+      // Update successful.
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+      // An error happened.
+    });
+};
+
+export const updateEmailUsers = () => (dispatch, getState) => {
+  dispatch(requestUser());
+  var user = firebase.auth().currentUser;
+
+  user
+    .updateEmail('user@example.com')
+    .then(function() {
+      // Update successful.
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+      // An error happened.
+    });
+};
+export const deleteUser = () => (dispatch, getState) => {
+  dispatch(requestUser());
+  var user = firebase.auth().currentUser;
+  user
+    .delete()
+    .then(function() {
+      // User deleted.
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+      // An error happened.
+    });
 };

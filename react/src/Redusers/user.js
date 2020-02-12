@@ -18,14 +18,14 @@ const initialState = {
     uid: '',
   },
   loading: false,
-  error: false,
+  error: {},
   allUsersList: [],
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOGIN: {
-      return { ...state, user: action.payload, loading: false, error: false };
+      return { ...state, user: action.payload, loading: false, error: {} };
     }
     case LOGOUT: {
       return {
@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
       };
     }
     case REGISTER: {
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload, loading: false, error: {} };
     }
 
     case EDIT_USER: {
@@ -65,7 +65,7 @@ export default function(state = initialState, action) {
       return { ...state, loading: true };
     }
     case ERROR_REQUEST_USER: {
-      return { ...state, error: true, loading: false };
+      return { ...state, error: action.payload, loading: false };
     }
     default:
       return state;
