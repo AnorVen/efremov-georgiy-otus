@@ -2,6 +2,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
 
+const provider = new firebase.auth.GoogleAuthProvider();
+
 import {
   DELETE_USER,
   EDIT_USER,
@@ -11,6 +13,7 @@ import {
   LOGOUT,
   REGISTER,
   REQUEST_USER,
+  UPDATE_USER,
 } from '../Constats';
 
 export const requestUser = () => ({
@@ -21,6 +24,30 @@ export const errorRequestUser = (error) => ({
   payload: error,
 });
 
+export const loginAction = (user) => ({ type: LOGIN, payload: user });
+
+export const updateUserAction = (user) => ({
+  type: UPDATE_USER,
+  payload: user,
+});
+
+export const loginWithGoogle = () => (dispatch, getState) => {
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const token = result.credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      dispatch(loginAction(user));
+      // ...
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+    });
+};
+
 export const currentUser = () => (dispatch, getState) => {
   console.log(firebase.auth().currentUser);
 };
@@ -29,8 +56,7 @@ export const logout = () => (dispatch, getState) => {
     .auth()
     .signOut()
     .then(function() {
-      console.log(1);
-      console.log(firebase.auth().currentUser);
+      console.log(`logout, user: ${firebase.auth().currentUser}`);
       // Sign-out successful.
     })
     .catch(function(error) {
@@ -41,8 +67,8 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const login = ({ email, password }) => (dispatch, getState) => {
-  console.log(email);
-  console.log(password);
+  window.localStorage.setItem('email', email);
+  window.localStorage.setItem('password', password);
   dispatch(requestUser());
   let store = getState();
   firebase
@@ -53,17 +79,8 @@ export const login = ({ email, password }) => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
     });
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log(user);
     if (user) {
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      // ...
+      dispatch(loginAction(user));
     } else {
       // User is signed out.
       // ...
@@ -72,7 +89,9 @@ export const login = ({ email, password }) => (dispatch, getState) => {
 };
 export const createUser = ({ email, password }) => (dispatch, getState) => {
   console.log('creacte');
-  let store = getState();
+  window.localStorage.setItem('email', email);
+  window.localStorage.setItem('password', password);
+
   dispatch(requestUser());
   firebase
     .auth()
@@ -81,17 +100,8 @@ export const createUser = ({ email, password }) => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
     });
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log(user);
     if (user) {
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      // ...
+      dispatch(loginAction(user));
     } else {
       // User is signed out.
       // ...
@@ -99,16 +109,15 @@ export const createUser = ({ email, password }) => (dispatch, getState) => {
   });
 };
 
-export const updateUser = () => (dispatch, getState) => {
+export const updateUser = (data) => (dispatch, getState) => {
   dispatch(requestUser());
-  var user = firebase.auth().currentUser;
+  const user = firebase.auth().currentUser;
 
   user
-    .updateProfile({
-      displayName: 'Jane Q. User',
-      photoURL: 'https://example.com/jane-q-user/profile.jpg',
-    })
+    .updateProfile(data)
     .then(function() {
+      console.log(user);
+      dispatch(updateUserAction(user));
       // Update successful.
     })
     .catch(function(error) {
@@ -117,14 +126,16 @@ export const updateUser = () => (dispatch, getState) => {
     });
 };
 
-export const updateEmailUsers = () => (dispatch, getState) => {
+export const updateEmailUsers = (email) => (dispatch, getState) => {
   dispatch(requestUser());
-  var user = firebase.auth().currentUser;
-
+  const user = firebase.auth().currentUser;
+  dispatch(requestUser());
   user
-    .updateEmail('user@example.com')
+    .updateEmail(email)
     .then(function() {
       // Update successful.
+      console.log(user);
+      dispatch(updateUserAction(user));
     })
     .catch(function(error) {
       dispatch(errorRequestUser(error));
@@ -137,6 +148,7 @@ export const deleteUser = () => (dispatch, getState) => {
   user
     .delete()
     .then(function() {
+      dispatch(logout());
       // User deleted.
     })
     .catch(function(error) {

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import posts from './posts';
-import user from './user';
+import user from './users';
 import { connectRouter } from 'connected-react-router';
 
 const createRootReducer = (history) =>

@@ -9,18 +9,7 @@ import { Provider } from 'react-redux';
 import * as firebase from 'firebase/app';
 import auth from 'firebase/auth';
 import firestore from 'firebase/firestore';
-
-const store = configureStore();
-const render = () => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  );
-};
-
-render();
+import { BrowserRouter as Router } from 'react-router-dom';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyAAgxUsM52QJnJIaLquYVR529CIoYZfbJk',
@@ -35,6 +24,20 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+const store = configureStore();
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
+    document.getElementById('root')
+  );
+};
+
+render();
 
 if (module.hot) {
   // Reload components

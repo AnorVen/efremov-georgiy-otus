@@ -7,6 +7,7 @@ import {
   LOGOUT,
   REGISTER,
   REQUEST_USER,
+  UPDATE_USER,
 } from '../Constats';
 
 const initialState = {
@@ -26,6 +27,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case LOGIN: {
       return { ...state, user: action.payload, loading: false, error: {} };
+    }
+    case UPDATE_USER: {
+      return { ...state, user: action.payload };
     }
     case LOGOUT: {
       return {

@@ -22,3 +22,4 @@ export const DELETE_USER = 'DELETE_USER';
 export const LOAD_ALL_USERS = 'LOAD_ALL_USERS';
 export const REQUEST_USER = 'REQUEST_USER';
 export const ERROR_REQUEST_USER = 'ERROR_REQUEST_USER';
+export const UPDATE_USER = 'UPDATE_USER';
