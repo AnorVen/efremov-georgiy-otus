@@ -156,3 +156,31 @@ export const deleteUser = () => (dispatch, getState) => {
       // An error happened.
     });
 };
+
+export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
+  console.log(avatarImg);
+  console.log(uid);
+  const state = getState();
+  const storageRef = firebase.storage().ref();
+  storageRef
+    .child(`avatars/${uid}`)
+    .put(avatarImg, avatarImg.metadata)
+    .then(function(snapshot) {
+      console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+      console.log('File metadata:', snapshot.metadata);
+      // Let's get a download URL for the file.
+      snapshot.ref
+        .getDownloadURL()
+        .then(function(url) {
+          console.log('File available at', url);
+          dispatch(updateUser({ photoURL: url }));
+          // [START_EXCLUDE]
+        })
+        .catch((error) => console.log(error));
+    })
+    .catch(function(error) {
+      // [START onfailure]
+      console.error('Upload failed:', error);
+      // [END onfailure]
+    });
+};

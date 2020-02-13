@@ -12,8 +12,15 @@ import HomePage from './pages/homePage';
 import NotFound from './pages/404';
 import Auth from './pages/auth';
 import Profile from './pages/profile';
+import Explore from './pages/explore';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom';
 import {
   createUser,
   currentUser,
@@ -41,18 +48,19 @@ class App extends Component {
     this.state = {
       logined: false,
     };
-    console.log(this.props);
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!state.logined) {
-      console.log('app rerender');
-      if (this.email && this.password) {
-        props.login({
-          email: this.email,
-          password: this.password,
-        });
-      }
+  componentDidMount() {
+    if (this.email && this.password) {
+      this.props.login({ email: this.email, password: this.password });
+      setTimeout(() => {
+        this.setState({ loaded: true });
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        this.setState({ loaded: true });
+        history.push('/auth');
+      }, 1000);
     }
   }
 
@@ -62,15 +70,22 @@ class App extends Component {
     return (
       <ConnectedRouter history={history}>
         <Main>
-          <Header />
-          <Content>
-            <Switch>
-              <Route exact path='/' component={() => <HomePage />} />
-              <Route exact path='/auth' component={() => <Auth />} />
-              <Route exact path='/profile' component={() => <Profile />} />
-              <Route path='*' component={() => <NotFound />} />
-            </Switch>
-          </Content>
+          {this.state.loaded ? (
+            <>
+              <Header />
+              <Content>
+                <Switch>
+                  <Route exact path='/' component={() => <HomePage />} />
+                  <Route exact path='/auth' component={() => <Auth />} />
+                  <Route exact path='/profile' component={() => <Profile />} />
+                  <Route exact path='/explore' component={() => <Explore />} />
+                  <Route path='*' component={() => <NotFound />} />
+                </Switch>
+              </Content>
+            </>
+          ) : (
+            <>LOADING...</>
+          )}
         </Main>
       </ConnectedRouter>
     );
