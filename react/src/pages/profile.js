@@ -4,12 +4,13 @@ import {
   createUser,
   currentUser,
   login,
-  loginWithGoogle,
   logout,
   updateUser,
   updateEmailUsers,
   deleteUser,
   choseAvaHandler,
+  changePassword,
+  updateUserAbout,
 } from '../Actions/users';
 import styled from 'styled-components';
 
@@ -37,18 +38,35 @@ class Profile extends Component {
     super();
     this.fileInput = React.createRef();
   }
+
   state = {
     newPassword: '',
     file: '',
     fileDataReader: '',
+    isEdit: false,
+    email: '',
+    displayName: '',
+    phoneNumber: '',
+    about: '',
   };
   logoutHandler = () => {
     this.props.logout();
   };
-  passwordHandler = (e) => {
+  passwordHandlerInput = (e) => {
     this.setState({
       newPassword: e.target.value,
     });
+  };
+  passwordHandler = () => {
+    this.props.changePassword(this.state.newPassword);
+  };
+  emailHandlerInput = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+  emailHandler = () => {
+    this.props.updateEmailUsers(this.state.email);
   };
 
   fileHandler = () => {
@@ -95,8 +113,34 @@ class Profile extends Component {
     }
   };
 
+  deleteUserHandler = () => {
+    this.props.deleteUser();
+    history.push('/auth');
+  };
+
+  inputNameHandler = (e) => {
+    this.setState({
+      displayName: e.target.value,
+    });
+  };
+  btnNameHandler = () => {
+    this.props.updateUser({ displayName: this.state.displayName });
+  };
+  aboutInputHandler = (e) => {
+    this.setState({
+      about: e.target.value,
+    });
+  };
+  aboutHandler = () => {
+    this.props.updateUserAbout(this.state.about);
+  };
+  editBtnHandler = () => {
+    this.setState({ isEdit: true });
+  };
+
   render() {
-    const { user } = this.props.userData;
+    const { isEdit } = this.state;
+    const { user, about, error, loading } = this.props.userData;
     const {
       uid = 0,
       displayName = '',
@@ -105,12 +149,19 @@ class Profile extends Component {
       phoneNumber = '',
       metadata = {},
     } = user;
-    console.log(user);
-    console.log(uid);
+
     return (
       <div>
+        {displayName && <p>{displayName}</p>}
+        <input
+          type='text'
+          value={this.state.displayName}
+          onChange={(name) => this.inputNameHandler(name)}
+        />
+        <button onClick={() => this.btnNameHandler()}>set userName</button>
+
         {photoURL && <Ava src={photoURL} alt='' />}
-        {!photoURL && (
+        {(!photoURL || isEdit) && (
           <>
             <label htmlFor='loadFile'>
               выбирите файл для загрузки
@@ -138,22 +189,55 @@ class Profile extends Component {
             </button>
           </>
         )}
-
-        <p>{displayName}</p>
-        <p>{email}</p>
+        {email && <p>{email}</p>}
+        <input
+          type='email'
+          value={this.state.email}
+          onChange={(email) => this.emailHandlerInput(email)}
+        />
+        <button
+          onClick={() => {
+            this.emailHandler();
+          }}
+        >
+          change email
+        </button>
+        <br />
         <input
           type='password'
           value={this.state.newPassword}
-          onChange={(pass) => this.passwordHandler(pass)}
+          onChange={(pass) => this.passwordHandlerInput(pass)}
         />
+        <button onClick={() => this.passwordHandler()}>change pass</button>
         <p>last sing in {metadata.lastSignInTime}</p>
-        <p>{user.about}</p>
+        {about && <p>{about}</p>}
+        <textarea
+          name='about'
+          id=''
+          cols='30'
+          rows='10'
+          value={this.state.about}
+          onChange={(text) => this.aboutInputHandler(text)}
+        />
+
+        <button onClick={() => this.aboutHandler()}>save about</button>
+        <br />
+        <button onClick={() => this.editBtnHandler()}>edit</button>
+        <br />
         <button
           onClick={() => {
             this.logoutHandler();
           }}
         >
           logout
+        </button>
+        <br />
+        <button
+          onClick={() => {
+            this.deleteUserHandler();
+          }}
+        >
+          delete User
         </button>
       </div>
     );
@@ -176,6 +260,10 @@ export default connect(
       deleteUser: () => dispatch(deleteUser()),
       choseAvaHandler: (avatarImg, uid) =>
         dispatch(choseAvaHandler(avatarImg, uid)),
+      changePassword: (newPassword) => dispatch(changePassword(newPassword)),
+      updateEmailUsers: (email) => dispatch(updateEmailUsers(email)),
+      updateUser: (data) => dispatch(updateUser(data)),
+      updateUserAbout: (text) => dispatch(updateUserAbout(text)),
     };
   }
 )(Profile);

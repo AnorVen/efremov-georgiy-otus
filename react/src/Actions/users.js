@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/database';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -14,6 +15,7 @@ import {
   REGISTER,
   REQUEST_USER,
   UPDATE_USER,
+  USER_ABOUT,
 } from '../Constats';
 
 export const requestUser = () => ({
@@ -29,6 +31,15 @@ export const loginAction = (user) => ({ type: LOGIN, payload: user });
 export const updateUserAction = (user) => ({
   type: UPDATE_USER,
   payload: user,
+});
+export const getAllUsersAction = (allUsers) => ({
+  type: LOAD_ALL_USERS,
+  payload: allUsers,
+});
+
+export const loadUserAboutAction = (about) => ({
+  type: USER_ABOUT,
+  payload: about,
 });
 
 export const loginWithGoogle = () => (dispatch, getState) => {
@@ -81,6 +92,7 @@ export const login = ({ email, password }) => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       dispatch(loginAction(user));
+      dispatch(loadUserAbout());
     } else {
       // User is signed out.
       // ...
@@ -127,15 +139,44 @@ export const updateUser = (data) => (dispatch, getState) => {
 };
 
 export const updateEmailUsers = (email) => (dispatch, getState) => {
-  dispatch(requestUser());
   const user = firebase.auth().currentUser;
   dispatch(requestUser());
   user
     .updateEmail(email)
     .then(function() {
       // Update successful.
+      window.localStorage.setItem('email', email);
       console.log(user);
-      dispatch(updateUserAction(user));
+      dispatch(reAuthenticate(user));
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+      // An error happened.
+    });
+};
+export const changePassword = (newPassword) => (dispatch, getState) => {
+  const user = firebase.auth().currentUser;
+  dispatch(requestUser());
+  user
+    .updatePassword(newPassword)
+    .then(function() {
+      // Update successful.
+      console.log(user);
+      window.localStorage.setItem('password', newPassword);
+      dispatch(reAuthenticate(user));
+    })
+    .catch(function(error) {
+      dispatch(errorRequestUser(error));
+      // An error happened.
+    });
+};
+export const reAuthenticate = (user) => (dispatch, getState) => {
+  var credential;
+  // Prompt the user to re-provide their sign-in credentials
+  user
+    .reauthenticateWithCredential(credential)
+    .then(function() {
+      // User re-authenticated.
     })
     .catch(function(error) {
       dispatch(errorRequestUser(error));
@@ -145,6 +186,8 @@ export const updateEmailUsers = (email) => (dispatch, getState) => {
 export const deleteUser = () => (dispatch, getState) => {
   dispatch(requestUser());
   var user = firebase.auth().currentUser;
+  window.localStorage.removeItem('email');
+  window.localStorage.removeItem('password');
   user
     .delete()
     .then(function() {
@@ -182,5 +225,52 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
       // [START onfailure]
       console.error('Upload failed:', error);
       // [END onfailure]
+    });
+};
+
+export const updateUserAbout = (about) => (dispatch, getState) => {
+  console.log(about);
+  const database = firebase.database();
+  const userId = firebase.auth().currentUser.uid;
+  database.ref('usersAbout/' + userId).set(
+    {
+      about,
+    },
+    function(error) {
+      if (error) {
+        dispatch(errorRequestUser(error));
+        // The write failed...
+      } else {
+        console.log(111);
+        dispatch(loadUserAboutAction(about));
+        // Data saved successfully!
+      }
+    }
+  );
+};
+
+export const loadUserAbout = () => (dispatch, getState) => {
+  const userId = firebase.auth().currentUser.uid;
+  firebase
+    .database()
+    .ref('/usersAbout/' + userId)
+    .once('value')
+    .then(function(snapshot) {
+      console.log(123);
+      const userAbout = (snapshot.val() && snapshot.val().about) || '';
+      console.log(userAbout);
+      dispatch(loadUserAboutAction(userAbout));
+    });
+};
+
+export const getAllUsers = () => (dispatch, getState) => {
+  firebase
+    .database()
+    .ref('/allWriters')
+    .once('value')
+    .then(function(snapshot) {
+      const allUsers = (snapshot.val() && snapshot.val()) || [];
+      console.log(allUsers);
+      dispatch(getAllUsersAction(allUsers));
     });
 };

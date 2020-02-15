@@ -8,6 +8,7 @@ import {
   REGISTER,
   REQUEST_USER,
   UPDATE_USER,
+  USER_ABOUT,
 } from '../Constats';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     emailVerified: '',
     uid: '',
   },
+  about: '',
   loading: false,
   error: {},
   allUsersList: [],
@@ -30,6 +32,9 @@ export default function(state = initialState, action) {
     }
     case UPDATE_USER: {
       return { ...state, user: action.payload };
+    }
+    case USER_ABOUT: {
+      return { ...state, about: action.payload };
     }
     case LOGOUT: {
       return {

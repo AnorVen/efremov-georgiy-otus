@@ -27,6 +27,7 @@ import {
   deleteUser,
   login,
   logout,
+  getAllUsers,
 } from './Actions/users';
 
 const Main = styled.div`
@@ -53,6 +54,7 @@ class App extends Component {
   componentDidMount() {
     if (this.email && this.password) {
       this.props.login({ email: this.email, password: this.password });
+      this.props.getAllUsers();
       setTimeout(() => {
         this.setState({ loaded: true });
       }, 1000);
@@ -101,6 +103,7 @@ export default connect(
   (dispatch) => {
     return {
       login: ({ email, password }) => dispatch(login({ email, password })),
+      getAllUsers: () => dispatch(getAllUsers()),
     };
   }
 )(App);

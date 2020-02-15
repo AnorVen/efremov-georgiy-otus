@@ -23,6 +23,7 @@ class NewPost extends Component {
   state = {
     text: '',
     file: null,
+    fileRead: '',
     length: 0,
   };
 
@@ -40,7 +41,10 @@ class NewPost extends Component {
       let reader = new FileReader();
       reader.readAsDataURL(this.fileInput.current.files[0]);
       reader.onload = () => {
-        this.setState({ file: reader.result });
+        this.setState({
+          file: this.fileInput.current.files[0],
+          fileRead: reader.result,
+        });
       };
       reader.onerror = function(event) {
         console.error(
@@ -55,7 +59,10 @@ class NewPost extends Component {
       let reader = new FileReader();
       reader.readAsDataURL(e.dataTransfer.files[0]);
       reader.onload = () => {
-        this.setState({ file: reader.result });
+        this.setState({
+          file: this.fileInput.current.files[0],
+          fileRead: reader.result,
+        });
       };
       reader.onerror = function(event) {
         console.error(
@@ -67,8 +74,8 @@ class NewPost extends Component {
   btnHandler = () => {
     if (!!this.state.text || !!this.state.file) {
       this.props.newPost({
-        text: this.state.text,
-        file: this.state.file,
+        text: this.state.text || null,
+        file: this.state.file || null,
         date: Date.now(),
       });
       this.setState({
@@ -110,9 +117,11 @@ class NewPost extends Component {
           место для драг енд дропа
         </DragZone>
 
-        {this.state.file && <PreveiwImage src={this.state.file} alt='' />}
+        {this.state.fileRead && (
+          <PreveiwImage src={this.state.fileRead} alt='' />
+        )}
 
-        <button onClick={() => this.btnHandler()}>Load new post</button>
+        <button onClick={() => this.btnHandler()}>Add new post</button>
       </div>
     );
   }
