@@ -18,6 +18,8 @@ import {
   USER_ABOUT,
 } from '../Constats';
 
+import { loadAllPost } from './posts';
+
 export const requestUser = () => ({
   type: REQUEST_USER,
 });
@@ -52,6 +54,7 @@ export const loginWithGoogle = () => (dispatch, getState) => {
       // The signed-in user info.
       const user = result.user;
       dispatch(loginAction(user));
+      dispatch(loadAllPost());
       // ...
     })
     .catch(function(error) {
@@ -93,6 +96,7 @@ export const login = ({ email, password }) => (dispatch, getState) => {
     if (user) {
       dispatch(loginAction(user));
       dispatch(loadUserAbout());
+      dispatch(loadAllPost());
     } else {
       // User is signed out.
       // ...

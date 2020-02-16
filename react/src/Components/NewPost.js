@@ -76,11 +76,13 @@ class NewPost extends Component {
       this.props.newPost({
         text: this.state.text || null,
         file: this.state.file || null,
+        fileRead: this.state.fileRead || null,
         date: Date.now(),
       });
       this.setState({
         text: '',
         file: '',
+        fileRead: '',
         length: 0,
       });
     }

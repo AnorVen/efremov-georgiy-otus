@@ -8,33 +8,25 @@ import {
 } from '../Constats';
 
 const initialState = {
-  posts: [{ text: 'awfawf', date: 1581457505755 }],
+  posts: {
+    '-M09dxPj97lYHNKCADZf': {
+      date: 1581800478142,
+      text: 'awdawd',
+    },
+  },
   error: false,
   loading: false,
 };
 export default function(state = initialState, action) {
-  let newPosts = [...state.posts];
   switch (action.type) {
     case ADD_POST: {
-      newPosts.push(action.payload);
-      return { ...state, posts: newPosts };
+      return { ...state, posts: action.payload };
     }
     case DELETE_POST: {
-      newPosts.map((post) => {
-        if (post.id !== action.payload.id) {
-          return post;
-        }
-      });
-      return { ...state, posts: newPosts };
+      return { ...state, posts: action.payload };
     }
     case EDIT_POST: {
-      newPosts.map((post) => {
-        if (post.id === action.payload.id) {
-          post = action.payload;
-        }
-        return post;
-      });
-      return { ...state, posts: newPosts };
+      return { ...state, posts: action.payload };
     }
 
     case LOADING_POSTS: {

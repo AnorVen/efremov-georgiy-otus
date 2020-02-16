@@ -14,11 +14,18 @@ class Home extends Component {
   render() {
     const { posts } = this.props;
     console.log(this.props);
+    let renderPost = [];
+    for (let [key, value] of Object.entries(posts.post)) {
+      value.id = key;
+      renderPost.push(value);
+    }
+    console.log(renderPost);
+
     return (
       <Wrap>
         <NewPost />
-        {posts &&
-          posts.posts.map((item, i) => {
+        {renderPost &&
+          renderPost.map((item, i) => {
             return <Post key={item.date} {...item} />;
           })}
       </Wrap>

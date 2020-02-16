@@ -25,7 +25,10 @@ const Post = (props) => {
             props.date
           ).getHours()}:${new Date(props.date).getMinutes()}`}
       </p>
-      {props.file && <PostImage src={props.file} alt='' />}
+      {!props.fileUrl && props.fileRead && (
+        <PostImage src={props.fileRead} alt='' />
+      )}
+      {props.fileUrl && <PostImage src={props.fileUrl} alt='' />}
       <p>{props.text && props.text}</p>
     </Wrapper>
   );
