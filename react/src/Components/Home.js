@@ -15,11 +15,24 @@ class Home extends Component {
     const { posts } = this.props;
     console.log(this.props);
     let renderPost = [];
-    for (let [key, value] of Object.entries(posts.post)) {
-      value.id = key;
-      renderPost.push(value);
+    if (posts.posts) {
+      for (let [key, value] of Object.entries(posts.posts)) {
+        console.log(key);
+        console.log(value);
+        value.id = key;
+        renderPost.push(value);
+        console.log(333, renderPost);
+      }
     }
-    console.log(renderPost);
+    renderPost = renderPost.sort((a, b) => {
+      if (a.date < b.date) {
+        return 1;
+      } else if (a.date > b.date) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log(444, renderPost);
 
     return (
       <Wrap>

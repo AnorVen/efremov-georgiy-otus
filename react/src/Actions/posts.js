@@ -61,14 +61,15 @@ export const addPost = (post) => (dispatch, getState) => {
     .child('posts')
     .push().key;
 
-  dispatch(addPostAction(post));
+  dispatch(addPostAction({ newPostKey: post }));
   post.uid = uid;
   post.name = displayName;
   let updates = {};
   if (post.file) {
+    console.log(post.file);
     const storageRef = firebase.storage().ref();
     storageRef
-      .child(`imgs/${uid}`)
+      .child(`imgs/${post.date}_${post.file.name}`)
       .put(post.file, post.file.metadata)
       .then(function(snapshot) {
         console.log('Uploaded', snapshot.totalBytes, 'bytes.');
