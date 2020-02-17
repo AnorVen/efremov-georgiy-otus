@@ -222,7 +222,7 @@ class Profile extends Component {
 
         <button onClick={() => this.aboutHandler()}>save about</button>
         <br />
-        <button onClick={() => this.editBtnHandler()}>edit</button>
+        {/*<button onClick={() => this.editBtnHandler()}>edit</button>*/}
         <br />
         <button
           onClick={() => {

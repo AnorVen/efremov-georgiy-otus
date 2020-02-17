@@ -20,7 +20,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_POST: {
-      return { ...state, posts: action.payload };
+      const newPosts = { ...state.posts };
+      for (let [key, value] of Object.entries(action.payload)) {
+        newPosts.key = value;
+      }
+      return { ...state, posts: newPosts };
     }
     case DELETE_POST: {
       return { ...state, posts: action.payload };

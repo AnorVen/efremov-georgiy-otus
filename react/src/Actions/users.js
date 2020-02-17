@@ -6,10 +6,12 @@ import 'firebase/database';
 const provider = new firebase.auth.GoogleAuthProvider();
 
 import {
+  ADD_TO_FRIENDS,
   DELETE_USER,
   EDIT_USER,
   ERROR_REQUEST_USER,
   LOAD_ALL_USERS,
+  LOAD_FRIENDS_POSTS,
   LOGIN,
   LOGOUT,
   REGISTER,
@@ -66,6 +68,8 @@ export const currentUser = () => (dispatch, getState) => {
   console.log(firebase.auth().currentUser);
 };
 export const logout = () => (dispatch, getState) => {
+  window.localStorage.removeItem('email');
+  window.localStorage.removeItem('password');
   firebase
     .auth()
     .signOut()
@@ -165,7 +169,6 @@ export const changePassword = (newPassword) => (dispatch, getState) => {
     .updatePassword(newPassword)
     .then(function() {
       // Update successful.
-      console.log(user);
       window.localStorage.setItem('password', newPassword);
       dispatch(reAuthenticate(user));
     })
@@ -234,23 +237,25 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
 
 export const updateUserAbout = (about) => (dispatch, getState) => {
   console.log(about);
-  const database = firebase.database();
   const userId = firebase.auth().currentUser.uid;
-  database.ref('usersAbout/' + userId).set(
-    {
-      about,
-    },
-    function(error) {
-      if (error) {
-        dispatch(errorRequestUser(error));
-        // The write failed...
-      } else {
-        console.log(111);
-        dispatch(loadUserAboutAction(about));
-        // Data saved successfully!
+  firebase
+    .database()
+    .ref('usersAbout/' + userId)
+    .set(
+      {
+        about,
+      },
+      function(error) {
+        if (error) {
+          dispatch(errorRequestUser(error));
+          // The write failed...
+        } else {
+          console.log(111);
+          dispatch(loadUserAboutAction(about));
+          // Data saved successfully!
+        }
       }
-    }
-  );
+    );
 };
 
 export const loadUserAbout = () => (dispatch, getState) => {
@@ -260,9 +265,7 @@ export const loadUserAbout = () => (dispatch, getState) => {
     .ref('/usersAbout/' + userId)
     .once('value')
     .then(function(snapshot) {
-      console.log(123);
       const userAbout = (snapshot.val() && snapshot.val().about) || '';
-      console.log(userAbout);
       dispatch(loadUserAboutAction(userAbout));
     });
 };
@@ -274,7 +277,40 @@ export const getAllUsers = () => (dispatch, getState) => {
     .once('value')
     .then(function(snapshot) {
       const allUsers = (snapshot.val() && snapshot.val()) || [];
-      console.log(allUsers);
       dispatch(getAllUsersAction(allUsers));
     });
 };
+
+export const addToFriendsAction = (friend) => ({
+  type: ADD_TO_FRIENDS,
+  payload: friend,
+});
+
+export const addToFriends = (friend) => (dispatch, getState) => {
+  const friendUid = friend.uid;
+  const userId = firebase.auth().currentUser.uid;
+  firebase
+    .database()
+    .ref('friends/' + userId)
+    .set(
+      {
+        [friendUid]: friend,
+      },
+      function(error) {
+        if (error) {
+          dispatch(errorRequestUser(error));
+          // The write failed...
+        } else {
+          console.log(111);
+          dispatch(addToFriendsAction(friend));
+          // Data saved successfully!
+        }
+      }
+    );
+};
+export const loadFriendsPostsAction = (posts) => ({
+  type: LOAD_FRIENDS_POSTS,
+  payload: posts,
+});
+
+export const loadFriendsPosts = () => (dispatch, getState) => {};

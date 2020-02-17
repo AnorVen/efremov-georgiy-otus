@@ -54,9 +54,9 @@ class App extends Component {
   componentDidMount() {
     if (this.email && this.password) {
       this.props.login({ email: this.email, password: this.password });
-      this.props.getAllUsers();
       setTimeout(() => {
         this.setState({ loaded: true });
+        this.props.getAllUsers();
       }, 1000);
     } else {
       setTimeout(() => {

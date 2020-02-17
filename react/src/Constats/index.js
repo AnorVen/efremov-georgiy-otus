@@ -16,3 +16,6 @@ export const REQUEST_USER = 'REQUEST_USER';
 export const ERROR_REQUEST_USER = 'ERROR_REQUEST_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const USER_ABOUT = 'USER_ABOUT';
+
+export const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS';
+export const LOAD_FRIENDS_POSTS = 'LOAD_FRIENDS_POSTS';

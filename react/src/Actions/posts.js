@@ -29,19 +29,17 @@ export const loadAllPost = () => (dispatch, getState) => {
 };
 
 export const addPost = (post) => (dispatch, getState) => {
-  console.log(post);
   const store = getState();
   let allUsers = store.user.allUsersList;
   const database = firebase.database();
-  const { uid, displayName } = firebase.auth().currentUser;
-  console.log(allUsers);
-  allUsers = new Set(allUsers);
+  const { uid, displayName, photoURL } = firebase.auth().currentUser;
 
-  let newAllWriters = allUsers.add(uid);
-  newAllWriters = Array.from(newAllWriters);
   database.ref('/allWriters/').set(
     {
-      ...newAllWriters,
+      [uid]: {
+        displayName,
+        photoURL,
+      },
     },
     function(error) {
       if (error) {
@@ -49,7 +47,7 @@ export const addPost = (post) => (dispatch, getState) => {
         //dispatch(errorRequestUser(error));
         // The write failed...
       } else {
-        dispatch(getAllUsersAction(newAllWriters));
+        dispatch(getAllUsersAction(allUsers));
         //dispatch(loadUserAboutAction(about));
         // Data saved successfully!
       }
@@ -93,7 +91,6 @@ export const addPost = (post) => (dispatch, getState) => {
                   //dispatch(errorRequestUser(error));
                   // The write failed...
                 } else {
-                  dispatch(getAllUsersAction(newAllWriters));
                   //dispatch(loadUserAboutAction(about));
                   // Data saved successfully!
                 }
@@ -109,7 +106,6 @@ export const addPost = (post) => (dispatch, getState) => {
   } else {
     updates['/posts/' + newPostKey] = post;
     updates['/user-posts/' + uid + '/' + newPostKey] = post;
-
     firebase
       .database()
       .ref()
@@ -119,7 +115,6 @@ export const addPost = (post) => (dispatch, getState) => {
           //dispatch(errorRequestUser(error));
           // The write failed...
         } else {
-          dispatch(getAllUsersAction(newAllWriters));
           //dispatch(loadUserAboutAction(about));
           // Data saved successfully!
         }

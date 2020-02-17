@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const PostImage = styled.img`
@@ -15,23 +15,45 @@ const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 100%;
 `;
-const Post = (props) => {
-  console.log(props);
-  return (
-    <Wrapper>
-      <p>
-        {props.date &&
-          `${new Date(props.date).toLocaleDateString()} ${new Date(
-            props.date
-          ).getHours()}:${new Date(props.date).getMinutes()}`}
-      </p>
-      {!props.fileUrl && props.fileRead && (
-        <PostImage src={props.fileRead} alt='' />
-      )}
-      {props.fileUrl && <PostImage src={props.fileUrl} alt='' />}
-      <p>{props.text && props.text}</p>
-    </Wrapper>
-  );
-};
+
+class Post extends Component {
+  render() {
+    const {
+      date = null,
+      fileUrl = null,
+      fileRead = null,
+      text = null,
+      likes = {},
+    } = this.props;
+    const newLikes = [];
+    if (Object.keys(likes).length) {
+      for (let [uid, name] of likes) {
+        newLikes.push(name);
+      }
+    }
+
+    return (
+      <Wrapper>
+        <p>
+          {date &&
+            `${new Date(date).toLocaleDateString()} ${new Date(
+              date
+            ).getHours()}:${new Date(date).getMinutes()}`}
+        </p>
+        {!fileUrl && fileRead && <PostImage src={fileRead} alt='' />}
+        {fileUrl && <PostImage src={fileUrl} alt='' />}
+        <p>{text && text}</p>
+        <p>likes: {newLikes.length}</p>
+        {!!newLikes.length && (
+          <ul>
+            {newLikes.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </Wrapper>
+    );
+  }
+}
 
 export default Post;

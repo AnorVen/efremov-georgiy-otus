@@ -22,7 +22,7 @@ const initialState = {
   about: '',
   loading: false,
   error: {},
-  allUsersList: [],
+  allUsersList: {},
 };
 
 export default function(state = initialState, action) {

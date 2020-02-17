@@ -28,7 +28,6 @@ class NewPost extends Component {
   };
 
   newPostHandler = (text) => {
-    console.log(text.target.value.length);
     if (text.target.value && text.target.value.length <= 145) {
       this.setState({
         text: text.target.value,
@@ -84,11 +83,11 @@ class NewPost extends Component {
         file: '',
         fileRead: '',
         length: 0,
+        likes: [],
       });
     }
   };
   render() {
-    console.log(this.state);
     return (
       <div>
         {this.state.length}
