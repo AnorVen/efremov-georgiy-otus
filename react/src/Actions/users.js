@@ -46,6 +46,19 @@ export const loadUserAboutAction = (about) => ({
   payload: about,
 });
 
+export const addToFriendsAction = (friend) => ({
+  type: ADD_TO_FRIENDS,
+  payload: friend,
+});
+
+export const loadFriendsPostsAction = (posts) => ({
+  type: LOAD_FRIENDS_POSTS,
+  payload: posts,
+});
+export const logoutAction = () => ({
+  type: LOGOUT,
+});
+
 export const loginWithGoogle = () => (dispatch, getState) => {
   firebase
     .auth()
@@ -75,13 +88,13 @@ export const logout = () => (dispatch, getState) => {
     .signOut()
     .then(function() {
       console.log(`logout, user: ${firebase.auth().currentUser}`);
+      dispatch(logoutAction());
       // Sign-out successful.
     })
     .catch(function(error) {
       // An error happened.
       dispatch(errorRequestUser(error));
     });
-  return dispatch({ type: LOGOUT });
 };
 
 export const login = ({ email, password }) => (dispatch, getState) => {
@@ -101,6 +114,7 @@ export const login = ({ email, password }) => (dispatch, getState) => {
       dispatch(loginAction(user));
       dispatch(loadUserAbout());
       dispatch(loadAllPost());
+      dispatch(fetchFriends());
     } else {
       // User is signed out.
       // ...
@@ -122,6 +136,34 @@ export const createUser = ({ email, password }) => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       dispatch(loginAction(user));
+      const store = getState();
+      const { uid, displayName, photoURL } = firebase.auth().currentUser;
+      let allUsers = store.user.allUsersList;
+      allUsers[uid] = {
+        displayName,
+        photoURL,
+      };
+      dispatch(getAllUsersAction(allUsers));
+      let updates = {};
+      updates['/users/' + uid] = {
+        uid,
+        displayName,
+        photoURL,
+      };
+
+      firebase
+        .database()
+        .ref()
+        .update(updates, function(error) {
+          if (error) {
+            console.error(error);
+            //dispatch(errorRequestUser(error));
+            // The write failed...
+          } else {
+            //dispatch(loadUserAboutAction(about));
+            // Data saved successfully!
+          }
+        });
     } else {
       // User is signed out.
       // ...
@@ -198,7 +240,7 @@ export const deleteUser = () => (dispatch, getState) => {
   user
     .delete()
     .then(function() {
-      dispatch(logout());
+      dispatch(logoutAction());
       // User deleted.
     })
     .catch(function(error) {
@@ -273,26 +315,26 @@ export const loadUserAbout = () => (dispatch, getState) => {
 export const getAllUsers = () => (dispatch, getState) => {
   firebase
     .database()
-    .ref('/allWriters')
+    .ref('/users')
     .once('value')
     .then(function(snapshot) {
-      const allUsers = (snapshot.val() && snapshot.val()) || [];
+      const allUsers = (snapshot.val() && snapshot.val()) || {};
       dispatch(getAllUsersAction(allUsers));
     });
 };
 
-export const addToFriendsAction = (friend) => ({
-  type: ADD_TO_FRIENDS,
-  payload: friend,
-});
-
 export const addToFriends = (friend) => (dispatch, getState) => {
   const friendUid = friend.uid;
   const userId = firebase.auth().currentUser.uid;
+  dispatch(
+    addToFriendsAction({
+      [friendUid]: friend,
+    })
+  );
   firebase
     .database()
     .ref('friends/' + userId)
-    .set(
+    .update(
       {
         [friendUid]: friend,
       },
@@ -302,15 +344,38 @@ export const addToFriends = (friend) => (dispatch, getState) => {
           // The write failed...
         } else {
           console.log(111);
-          dispatch(addToFriendsAction(friend));
           // Data saved successfully!
         }
       }
     );
 };
-export const loadFriendsPostsAction = (posts) => ({
-  type: LOAD_FRIENDS_POSTS,
-  payload: posts,
-});
 
-export const loadFriendsPosts = () => (dispatch, getState) => {};
+export const fetchFriends = () => (dispatch, getState) => {
+  const userId = firebase.auth().currentUser.uid;
+  firebase
+    .database()
+    .ref(`/friends/${userId}`)
+    .once('value')
+    .then(function(snapshot) {
+      const allUsers = (snapshot.val() && snapshot.val()) || {};
+      dispatch(addToFriendsAction(allUsers));
+      dispatch(loadFriendsPosts());
+    });
+};
+
+export const loadFriendsPosts = () => (dispatch, getState) => {
+  const state = getState();
+  const friends = state.user.user.friends;
+  let friendsPosts = {};
+  for (let [key, val] of Object.entries(friends)) {
+    firebase
+      .database()
+      .ref(`/user-posts/${key}`)
+      .once('value')
+      .then(function(snapshot) {
+        const friendsPostsLoaded = (snapshot.val() && snapshot.val()) || {};
+        friendsPosts = { ...friendsPosts, ...friendsPostsLoaded };
+      });
+  }
+  dispatch(loadFriendsPostsAction(friendsPosts));
+};

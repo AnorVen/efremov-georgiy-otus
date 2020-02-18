@@ -29,30 +29,8 @@ export const loadAllPost = () => (dispatch, getState) => {
 };
 
 export const addPost = (post) => (dispatch, getState) => {
-  const store = getState();
-  let allUsers = store.user.allUsersList;
-  const database = firebase.database();
-  const { uid, displayName, photoURL } = firebase.auth().currentUser;
+  const { uid, displayName } = firebase.auth().currentUser;
 
-  database.ref('/allWriters/').set(
-    {
-      [uid]: {
-        displayName,
-        photoURL,
-      },
-    },
-    function(error) {
-      if (error) {
-        console.error(222, error);
-        //dispatch(errorRequestUser(error));
-        // The write failed...
-      } else {
-        dispatch(getAllUsersAction(allUsers));
-        //dispatch(loadUserAboutAction(about));
-        // Data saved successfully!
-      }
-    }
-  );
   const newPostKey = firebase
     .database()
     .ref()

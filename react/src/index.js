@@ -7,8 +7,7 @@ import configureStore from './Store';
 import { Provider } from 'react-redux';
 
 import * as firebase from 'firebase/app';
-import auth from 'firebase/auth';
-import firestore from 'firebase/firestore';
+
 import { BrowserRouter as Router } from 'react-router-dom';
 
 var firebaseConfig = {
@@ -29,9 +28,7 @@ const store = configureStore();
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <App />
     </Provider>,
     document.getElementById('root')
   );

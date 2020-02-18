@@ -10,7 +10,7 @@ import {
 
 class Login extends Component {
   state = {
-    email: '123@qwe.ru',
+    email: '63@qwe.ru',
     password: '123123',
   };
   loginHandler = () => {
@@ -19,8 +19,8 @@ class Login extends Component {
       password: this.state.password,
     });
     this.setState({
-      email: '123@qwe.ru',
-      password: '123123',
+      email: '',
+      password: '',
     });
   };
   createUser = () => {
@@ -29,8 +29,8 @@ class Login extends Component {
       password: this.state.password,
     });
     this.setState({
-      email: '11123@qwe.ru',
-      password: '123123',
+      email: '',
+      password: '',
     });
   };
   emailHandler = (e) => {

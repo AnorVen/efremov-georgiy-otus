@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { history } from '../Store';
 import {
   createUser,
   currentUser,
@@ -49,6 +50,10 @@ class Profile extends Component {
     phoneNumber: '',
     about: '',
   };
+  componentDidMount() {
+    history.push('/auth');
+  }
+
   logoutHandler = () => {
     this.props.logout();
   };
@@ -115,7 +120,6 @@ class Profile extends Component {
 
   deleteUserHandler = () => {
     this.props.deleteUser();
-    history.push('/auth');
   };
 
   inputNameHandler = (e) => {
@@ -139,6 +143,8 @@ class Profile extends Component {
   };
 
   render() {
+    console.log(this.props);
+    console.log(this.context);
     const { isEdit } = this.state;
     const { user, about, error, loading } = this.props.userData;
     const {

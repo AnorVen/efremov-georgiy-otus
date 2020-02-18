@@ -9,6 +9,7 @@ import {
   REQUEST_USER,
   UPDATE_USER,
   USER_ABOUT,
+  ADD_TO_FRIENDS,
 } from '../Constats';
 
 const initialState = {
@@ -23,10 +24,22 @@ const initialState = {
   loading: false,
   error: {},
   allUsersList: {},
+  friends: {},
+  friendsPosts: {},
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case ADD_TO_FRIENDS: {
+      const newFriends = action.payload;
+      const newFriendsList = { ...state.friends, ...newFriends };
+      return { ...state, friends: newFriendsList };
+    }
+    case LOAD_ALL_USERS: {
+      const newAllUsers = action.payload;
+      const newAllUsersList = { ...state.allUsersList, ...newAllUsers };
+      return { ...state, allUsersList: newAllUsersList };
+    }
     case LOGIN: {
       return { ...state, user: action.payload, loading: false, error: {} };
     }
@@ -46,6 +59,7 @@ export default function(state = initialState, action) {
           emailVerified: '',
           uid: '',
         },
+        about: '',
       };
     }
     case REGISTER: {
@@ -65,11 +79,10 @@ export default function(state = initialState, action) {
           emailVerified: '',
           uid: '',
         },
+        about: '',
       };
     }
-    case LOAD_ALL_USERS: {
-      return { ...state, allUsersList: action.payload };
-    }
+
     case REQUEST_USER: {
       return { ...state, loading: true };
     }

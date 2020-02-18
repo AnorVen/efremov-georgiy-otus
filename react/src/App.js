@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import Header from './Containers/Header';
-import createRootReducer from './Redusers';
 import { history } from './Store';
 import HomePage from './pages/homePage';
 import NotFound from './pages/404';
@@ -47,16 +46,16 @@ class App extends Component {
     this.email = window.localStorage.getItem('email');
     this.password = window.localStorage.getItem('password');
     this.state = {
-      logined: false,
+      loaded: false,
     };
   }
 
   componentDidMount() {
+    this.props.getAllUsers();
     if (this.email && this.password) {
       this.props.login({ email: this.email, password: this.password });
       setTimeout(() => {
         this.setState({ loaded: true });
-        this.props.getAllUsers();
       }, 1000);
     } else {
       setTimeout(() => {
@@ -70,7 +69,7 @@ class App extends Component {
     console.log('App render');
     console.log(this.props);
     return (
-      <ConnectedRouter history={history}>
+      <Router history={history}>
         <Main>
           {this.state.loaded ? (
             <>
@@ -79,7 +78,12 @@ class App extends Component {
                 <Switch>
                   <Route exact path='/' component={() => <HomePage />} />
                   <Route exact path='/auth' component={() => <Auth />} />
-                  <Route exact path='/profile' component={() => <Profile />} />
+                  <Route
+                    history={history}
+                    exact
+                    path='/profile'
+                    component={() => <Profile />}
+                  />
                   <Route exact path='/explore' component={() => <Explore />} />
                   <Route path='*' component={() => <NotFound />} />
                 </Switch>
@@ -89,7 +93,7 @@ class App extends Component {
             <>LOADING...</>
           )}
         </Main>
-      </ConnectedRouter>
+      </Router>
     );
   }
 }
