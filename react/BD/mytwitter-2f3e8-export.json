@@ -1,38 +1,4 @@
 {
-  "users" : {
-    "DDwZ4kR3bCZ8cxLkhaspNawPq172" : {
-      "displayName" : "Bob1",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "HHl4B9kE8DXSySRw3R8fcweEvlN2" : {
-      "displayName" : "Bob2",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "ZVDpQJD0uudChlAzdHCuWOfEDBF3" : {
-      "displayName" : "Bob3",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "ZymKKHT8LKbo2T0B9Lke944TLgK2" : {
-      "displayName" : "Bob4",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "hpS99NGnvePkodWjjGH0WC5qAXX2" : {
-      "displayName" : "Bob5",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "kRnMJroSFaM7OrMI57W8BDnrQj12" : {
-      "displayName" : "Bob6",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "vADC98b1pfW76rNQLwLw0fx30aX2" : {
-      "displayName" : "Bob7",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    },
-    "ywwSAxKdIdSJ2a048SrAd9TsG3Y2" : {
-      "displayName" : "Bob8",
-      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
-    }
-  },
   "friends" : {
     "DDwZ4kR3bCZ8cxLkhaspNawPq172" : {
       "-M09dvC6sA6lQpLoWVad" : {
@@ -40,6 +6,84 @@
         "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/imgs%2FywwSAxKdIdSJ2a048SrAd9TsG3Y2?alt=media&token=f8f33956-2bc5-4f8d-89a5-3c7dfb711087",
         "uid" : "-M09dvC6sA6lQpLoWVad"
       }
+    },
+    "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : {
+      "HHl4B9kE8DXSySRw3R8fcweEvlN2" : {
+        "displayName" : "Bob2",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "HHl4B9kE8DXSySRw3R8fcweEvlN2"
+      },
+      "ZVDpQJD0uudChlAzdHCuWOfEDBF3" : {
+        "displayName" : "Bob3",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ZVDpQJD0uudChlAzdHCuWOfEDBF3"
+      },
+      "ZymKKHT8LKbo2T0B9Lke944TLgK2" : {
+        "displayName" : "Bob4",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ZymKKHT8LKbo2T0B9Lke944TLgK2"
+      },
+      "vADC98b1pfW76rNQLwLw0fx30aX2" : {
+        "displayName" : "Bob7",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "vADC98b1pfW76rNQLwLw0fx30aX2"
+      },
+      "ywwSAxKdIdSJ2a048SrAd9TsG3Y2" : {
+        "displayName" : "Bob8",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ywwSAxKdIdSJ2a048SrAd9TsG3Y2"
+      }
+    },
+    "hpS99NGnvePkodWjjGH0WC5qAXX2" : {
+      "DDwZ4kR3bCZ8cxLkhaspNawPq172" : {
+        "displayName" : "Bob1",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "DDwZ4kR3bCZ8cxLkhaspNawPq172"
+      },
+      "HHl4B9kE8DXSySRw3R8fcweEvlN2" : {
+        "displayName" : "Bob2",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "HHl4B9kE8DXSySRw3R8fcweEvlN2"
+      },
+      "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : {
+        "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+      },
+      "ZVDpQJD0uudChlAzdHCuWOfEDBF3" : {
+        "displayName" : "Bob3",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ZVDpQJD0uudChlAzdHCuWOfEDBF3"
+      },
+      "ZymKKHT8LKbo2T0B9Lke944TLgK2" : {
+        "displayName" : "Bob4",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ZymKKHT8LKbo2T0B9Lke944TLgK2"
+      },
+      "kRnMJroSFaM7OrMI57W8BDnrQj12" : {
+        "displayName" : "Bob6",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "kRnMJroSFaM7OrMI57W8BDnrQj12"
+      },
+      "vADC98b1pfW76rNQLwLw0fx30aX2" : {
+        "displayName" : "Bob7",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "vADC98b1pfW76rNQLwLw0fx30aX2"
+      },
+      "ywwSAxKdIdSJ2a048SrAd9TsG3Y2" : {
+        "displayName" : "Bob8",
+        "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28",
+        "uid" : "ywwSAxKdIdSJ2a048SrAd9TsG3Y2"
+      }
+    }
+  },
+  "likes" : {
+    "-M0N1CswAtxy0CaYV0yJ" : {
+      "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : "anonimLike"
+    },
+    "-M0N1RrdgQVycBf1mxyC" : {
+      "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : "anonimLike"
+    },
+    "-M0N1bxvZ2EEJLbvhXkH" : {
+      "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : "anonimLike"
     }
   },
   "posts" : {
@@ -177,36 +221,11 @@
       "text" : "asfawf",
       "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
     },
-    "-M0KU9e5w9LKd9T6TRUJ" : {
-      "date" : 1581982198445,
-      "text" : "123123",
-      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-    },
-    "-M0KUA3OYrw3-3D72MB9" : {
-      "date" : 1581982200128,
-      "text" : "123123",
-      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-    },
-    "-M0KUAOLn1w8EhlyMDr_" : {
-      "date" : 1581982201469,
-      "text" : "123",
-      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-    },
-    "-M0KUAjKHDlGYipFACFv" : {
-      "date" : 1581982202876,
-      "text" : "123",
-      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-    },
     "-M0KUpc0nvkMlmzQvwsU" : {
       "date" : 1581982374438,
       "fileUrl" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/imgs%2F1581982374438_pak.jpg?alt=media&token=f0fa7162-bb19-4f4b-bcad-d0c138e8b6cb",
       "id" : "key",
       "text" : "afwaf",
-      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-    },
-    "-M0KW5Z2UyutDerydjrI" : {
-      "date" : 1581982705957,
-      "text" : "awdawd",
       "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
     },
     "-M0Mu57_1TP5Tx3WTDgl" : {
@@ -252,6 +271,31 @@
       "date" : 1582025048013,
       "text" : "awd",
       "uid" : "HHl4B9kE8DXSySRw3R8fcweEvlN2"
+    },
+    "-M0O-4pfGh1IzAcMezNW" : {
+      "date" : 1582041161152,
+      "text" : "63",
+      "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+    },
+    "-M0O-5StdeUwyo7juSZv" : {
+      "date" : 1582041163727,
+      "text" : "6363",
+      "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+    },
+    "-M0O-6ZQTXvoJt4xGgBw" : {
+      "date" : 1582041168241,
+      "text" : "66336",
+      "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+    },
+    "-M0PUJKKNdGf8Vq25aWt" : {
+      "date" : 1582066124169,
+      "text" : "awfsaf",
+      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
+    },
+    "-M0PUMStrqKNvuj51Ps-" : {
+      "date" : 1582066137006,
+      "text" : "saaaaaaaaaaa",
+      "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
     }
   },
   "user-posts" : {
@@ -337,6 +381,23 @@
         "uid" : "HHl4B9kE8DXSySRw3R8fcweEvlN2"
       }
     },
+    "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : {
+      "-M0O-4pfGh1IzAcMezNW" : {
+        "date" : 1582041161152,
+        "text" : "63",
+        "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+      },
+      "-M0O-5StdeUwyo7juSZv" : {
+        "date" : 1582041163727,
+        "text" : "6363",
+        "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+      },
+      "-M0O-6ZQTXvoJt4xGgBw" : {
+        "date" : 1582041168241,
+        "text" : "66336",
+        "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+      }
+    },
     "hpS99NGnvePkodWjjGH0WC5qAXX2" : {
       "-M0KU8B4WR7Zh9h584yC" : {
         "date" : 1581982192425,
@@ -348,26 +409,6 @@
         "text" : "asfawf",
         "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
       },
-      "-M0KU9e5w9LKd9T6TRUJ" : {
-        "date" : 1581982198445,
-        "text" : "123123",
-        "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-      },
-      "-M0KUA3OYrw3-3D72MB9" : {
-        "date" : 1581982200128,
-        "text" : "123123",
-        "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-      },
-      "-M0KUAOLn1w8EhlyMDr_" : {
-        "date" : 1581982201469,
-        "text" : "123",
-        "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-      },
-      "-M0KUAjKHDlGYipFACFv" : {
-        "date" : 1581982202876,
-        "text" : "123",
-        "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
-      },
       "-M0KUpc0nvkMlmzQvwsU" : {
         "date" : 1581982374438,
         "fileUrl" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/imgs%2F1581982374438_pak.jpg?alt=media&token=f0fa7162-bb19-4f4b-bcad-d0c138e8b6cb",
@@ -375,9 +416,14 @@
         "text" : "afwaf",
         "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
       },
-      "-M0KW5Z2UyutDerydjrI" : {
-        "date" : 1581982705957,
-        "text" : "awdawd",
+      "-M0PUJKKNdGf8Vq25aWt" : {
+        "date" : 1582066124169,
+        "text" : "awfsaf",
+        "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
+      },
+      "-M0PUMStrqKNvuj51Ps-" : {
+        "date" : 1582066137006,
+        "text" : "saaaaaaaaaaa",
         "uid" : "hpS99NGnvePkodWjjGH0WC5qAXX2"
       }
     },
@@ -472,6 +518,43 @@
         "text" : "awf",
         "uid" : "ywwSAxKdIdSJ2a048SrAd9TsG3Y2"
       }
+    }
+  },
+  "users" : {
+    "DDwZ4kR3bCZ8cxLkhaspNawPq172" : {
+      "displayName" : "Bob1",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "HHl4B9kE8DXSySRw3R8fcweEvlN2" : {
+      "displayName" : "Bob2",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "IveuQTXJOIXMl4FCCYMG7LCBaKY2" : {
+      "uid" : "IveuQTXJOIXMl4FCCYMG7LCBaKY2"
+    },
+    "ZVDpQJD0uudChlAzdHCuWOfEDBF3" : {
+      "displayName" : "Bob3",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "ZymKKHT8LKbo2T0B9Lke944TLgK2" : {
+      "displayName" : "Bob4",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "hpS99NGnvePkodWjjGH0WC5qAXX2" : {
+      "displayName" : "Bob5",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "kRnMJroSFaM7OrMI57W8BDnrQj12" : {
+      "displayName" : "Bob6",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "vADC98b1pfW76rNQLwLw0fx30aX2" : {
+      "displayName" : "Bob7",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
+    },
+    "ywwSAxKdIdSJ2a048SrAd9TsG3Y2" : {
+      "displayName" : "Bob8",
+      "photoURL" : "https://firebasestorage.googleapis.com/v0/b/mytwitter-2f3e8.appspot.com/o/avatars%2FDDwZ4kR3bCZ8cxLkhaspNawPq172?alt=media&token=14a11bc8-7ec3-4b4f-8bd3-6677013bde28"
     }
   },
   "usersAbout" : {
