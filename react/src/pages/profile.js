@@ -112,7 +112,6 @@ class Profile extends Component {
     }
   };
   choseAvaHandler = (uid) => {
-    console.log(uid);
     if (this.state.file) {
       this.props.choseAvaHandler(this.state.file, uid);
     }
@@ -143,8 +142,6 @@ class Profile extends Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log(this.context);
     const { isEdit } = this.state;
     const { user, about, error, loading } = this.props.userData;
     const {

@@ -257,7 +257,6 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
       snapshot.ref
         .getDownloadURL()
         .then(function(url) {
-          console.log('File available at', url);
           dispatch(updateUser({ photoURL: url }));
           // [START_EXCLUDE]
         })
@@ -271,7 +270,6 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
 };
 
 export const updateUserAbout = (about) => (dispatch, getState) => {
-  console.log(about);
   const userId = firebase.auth().currentUser.uid;
   firebase
     .database()
@@ -285,7 +283,6 @@ export const updateUserAbout = (about) => (dispatch, getState) => {
           dispatch(errorRequestUser(error));
           // The write failed...
         } else {
-          console.log(111);
           dispatch(loadUserAboutAction(about));
           // Data saved successfully!
         }
@@ -336,7 +333,6 @@ export const addToFriends = (friend) => (dispatch, getState) => {
           dispatch(errorRequestUser(error));
           // The write failed...
         } else {
-          console.log(111);
           // Data saved successfully!
         }
       }
@@ -368,7 +364,6 @@ export const loadFriendsPosts = () => (dispatch, getState) => {
       .once('value')
       .then(function(snapshot) {
         const friendsPostsLoaded = (snapshot.val() && snapshot.val()) || {};
-        console.log(friendsPostsLoaded);
         friendsPosts = { ...friendsPosts, ...friendsPostsLoaded };
         dispatch(loadFriendsPostsAction(friendsPosts));
       });

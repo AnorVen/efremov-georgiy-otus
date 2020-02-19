@@ -87,8 +87,6 @@ class Explore extends Component {
       }
     });
     friendsPostsArr = friendsPostsArr.sort((a, b) => b.date - a.date);
-    console.log(friendsPostsArr);
-
     const renderFriends = () => {
       if (friendsArr.length) {
         return (
