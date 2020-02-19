@@ -5,6 +5,7 @@ import {
   ADD_POST,
   LOADING_POSTS,
   GET_POST_REQUEST,
+  LIKE_POST,
 } from '../Constats';
 
 const initialState = {
@@ -17,11 +18,15 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case LIKE_POST: {
       const newLikes = { ...state.likes };
-      if (newLikes[action.payload.id]) {
-        delete newLikes[action.payload.id];
-      } else {
-        newLikes[action.payload.id] = action.payload;
+      let like = Object.entries(action.payload);
+      for (let [key, val] of like) {
+        if (newLikes[key]) {
+          delete newLikes[action.payload.id];
+        } else {
+          newLikes[key] = val;
+        }
       }
+
       return { ...state, likes: newLikes };
     }
     case ADD_POST: {

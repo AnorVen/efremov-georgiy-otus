@@ -89,7 +89,6 @@ export const logout = () => (dispatch, getState) => {
     .auth()
     .signOut()
     .then(function() {
-      console.log(`logout, user: ${firebase.auth().currentUser}`);
       dispatch(logoutAction());
       // Sign-out successful.
     })
@@ -124,7 +123,6 @@ export const login = ({ email, password }) => (dispatch, getState) => {
   });
 };
 export const createUser = ({ email, password }) => (dispatch, getState) => {
-  console.log('creacte');
   window.localStorage.setItem('email', email);
   window.localStorage.setItem('password', password);
 
@@ -180,7 +178,6 @@ export const updateUser = (data) => (dispatch, getState) => {
   user
     .updateProfile(data)
     .then(function() {
-      console.log(user);
       dispatch(updateUserAction(user));
       // Update successful.
     })
@@ -198,7 +195,6 @@ export const updateEmailUsers = (email) => (dispatch, getState) => {
     .then(function() {
       // Update successful.
       window.localStorage.setItem('email', email);
-      console.log(user);
       dispatch(reAuthenticate(user));
     })
     .catch(function(error) {
@@ -252,16 +248,11 @@ export const deleteUser = () => (dispatch, getState) => {
 };
 
 export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
-  console.log(avatarImg);
-  console.log(uid);
-  const state = getState();
   const storageRef = firebase.storage().ref();
   storageRef
     .child(`avatars/${uid}`)
     .put(avatarImg, avatarImg.metadata)
     .then(function(snapshot) {
-      console.log('Uploaded', snapshot.totalBytes, 'bytes.');
-      console.log('File metadata:', snapshot.metadata);
       // Let's get a download URL for the file.
       snapshot.ref
         .getDownloadURL()

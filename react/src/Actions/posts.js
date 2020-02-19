@@ -6,8 +6,6 @@ import 'firebase/database';
 import { ADD_POST, DELETE_POST, LIKE_POST, LOADING_POSTS } from '../Constats';
 
 import {} from './users';
-import { getAllUsersAction } from './users';
-import { updateUser } from './users';
 
 export const addPostAction = (post) => ({
   type: ADD_POST,
@@ -114,20 +112,28 @@ export const deletePost = (id) => (dispatch, getState) => {
     .remove();
 };
 
-export const likeHandlerAction = (like) => ({ type: LIKE_POST, payload: like });
+export const likeAction = (like) => ({ type: LIKE_POST, payload: like });
 
-export const likeHandler = (like) => (dispatch, getState) => {
-  dispatch(likeHandlerAction(like));
-  const store = getState;
-
-  const { uid, displayName } = firebase.auth().currentUser;
+export const fetchLike = () => (dispatch, getState) => {
+  firebase
+    .database()
+    .ref('/likes/')
+    .on('value', function(snapshot) {
+      console.log(snapshot.val());
+      dispatch(likeAction(snapshot.val()));
+      //updateStarCount(postElement, snapshot.val());
+    });
+};
+export const likeAdd = (like) => (dispatch, getState) => {
+  dispatch(likeAction(like));
+  let { uid, displayName = 'anonimLike' } = firebase.auth().currentUser;
   const { id } = like;
+  if (!displayName) {
+    displayName = 'anonimLike';
+  }
+  const likeToBD = { [uid]: displayName };
   const updates = {};
-  updates['/likes/' + id] = {
-    id,
-    uid,
-    displayName,
-  };
+  updates['/likes/' + id] = likeToBD;
   firebase
     .database()
     .ref()
@@ -137,8 +143,18 @@ export const likeHandler = (like) => (dispatch, getState) => {
         //dispatch(errorRequestUser(error));
         // The write failed...
       } else {
+        console.log(11213, likeToBD);
         //dispatch(loadUserAboutAction(about));
         // Data saved successfully!
       }
     });
+};
+export const likeDelete = (like) => (dispatch, getState) => {
+  dispatch(likeAction(like));
+  const { uid } = firebase.auth().currentUser;
+  const { id } = like;
+  firebase
+    .database()
+    .ref(`/likes/${id}/${uid}`)
+    .remove();
 };

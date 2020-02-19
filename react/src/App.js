@@ -28,6 +28,7 @@ import {
   logout,
   getAllUsers,
 } from './Actions/users';
+import { fetchLike } from './Actions/posts';
 
 const Main = styled.div`
   background-color: #eee;
@@ -52,6 +53,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getAllUsers();
+    this.props.fetchLike();
     if (this.email && this.password) {
       this.props.login({ email: this.email, password: this.password });
       setTimeout(() => {
@@ -108,6 +110,7 @@ export default connect(
     return {
       login: ({ email, password }) => dispatch(login({ email, password })),
       getAllUsers: () => dispatch(getAllUsers()),
+      fetchLike: () => dispatch(fetchLike()),
     };
   }
 )(App);
