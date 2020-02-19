@@ -69,7 +69,9 @@ export const loginWithGoogle = () => (dispatch, getState) => {
       // The signed-in user info.
       const user = result.user;
       dispatch(loginAction(user));
+      dispatch(loadUserAbout());
       dispatch(loadAllPost());
+      dispatch(fetchFriends());
       // ...
     })
     .catch(function(error) {
@@ -365,7 +367,8 @@ export const fetchFriends = () => (dispatch, getState) => {
 
 export const loadFriendsPosts = () => (dispatch, getState) => {
   const state = getState();
-  const friends = state.user.user.friends;
+
+  const friends = state.user.friends;
   let friendsPosts = {};
   for (let [key, val] of Object.entries(friends)) {
     firebase
@@ -374,8 +377,9 @@ export const loadFriendsPosts = () => (dispatch, getState) => {
       .once('value')
       .then(function(snapshot) {
         const friendsPostsLoaded = (snapshot.val() && snapshot.val()) || {};
+        console.log(friendsPostsLoaded);
         friendsPosts = { ...friendsPosts, ...friendsPostsLoaded };
+        dispatch(loadFriendsPostsAction(friendsPosts));
       });
   }
-  dispatch(loadFriendsPostsAction(friendsPosts));
 };

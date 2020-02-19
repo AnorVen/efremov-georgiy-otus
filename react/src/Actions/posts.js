@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/database';
 
-import { ADD_POST, LOADING_POSTS } from '../Constats';
+import { ADD_POST, DELETE_POST, LIKE_POST, LOADING_POSTS } from '../Constats';
 
 import {} from './users';
 import { getAllUsersAction } from './users';
@@ -89,7 +89,7 @@ export const addPost = (post) => (dispatch, getState) => {
       .ref()
       .update(updates, function(error) {
         if (error) {
-          console.error(222, error);
+          console.error(error);
           //dispatch(errorRequestUser(error));
           // The write failed...
         } else {
@@ -98,4 +98,47 @@ export const addPost = (post) => (dispatch, getState) => {
         }
       });
   }
+};
+
+export const deletePostAction = (id) => ({ type: DELETE_POST, payload: id });
+export const deletePost = (id) => (dispatch, getState) => {
+  dispatch(deletePostAction(id));
+  const { uid, displayName } = firebase.auth().currentUser;
+  firebase
+    .database()
+    .ref('/posts/' + id)
+    .remove();
+  firebase
+    .database()
+    .ref('/user-posts/' + uid + '/' + id)
+    .remove();
+};
+
+export const likeHandlerAction = (like) => ({ type: LIKE_POST, payload: like });
+
+export const likeHandler = (like) => (dispatch, getState) => {
+  dispatch(likeHandlerAction(like));
+  const store = getState;
+
+  const { uid, displayName } = firebase.auth().currentUser;
+  const { id } = like;
+  const updates = {};
+  updates['/likes/' + id] = {
+    id,
+    uid,
+    displayName,
+  };
+  firebase
+    .database()
+    .ref()
+    .update(updates, function(error) {
+      if (error) {
+        console.error(error);
+        //dispatch(errorRequestUser(error));
+        // The write failed...
+      } else {
+        //dispatch(loadUserAboutAction(about));
+        // Data saved successfully!
+      }
+    });
 };

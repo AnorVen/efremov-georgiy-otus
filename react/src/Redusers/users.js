@@ -10,6 +10,7 @@ import {
   UPDATE_USER,
   USER_ABOUT,
   ADD_TO_FRIENDS,
+  LOAD_FRIENDS_POSTS,
 } from '../Constats';
 
 const initialState = {
@@ -30,6 +31,11 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOAD_FRIENDS_POSTS: {
+      const { payload } = action;
+      const newFriendsPosts = { ...state.friendsPosts, ...payload };
+      return { ...state, friendsPosts: newFriendsPosts };
+    }
     case ADD_TO_FRIENDS: {
       const newFriends = action.payload;
       const newFriendsList = { ...state.friends, ...newFriends };

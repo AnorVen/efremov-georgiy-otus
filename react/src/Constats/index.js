@@ -19,3 +19,4 @@ export const USER_ABOUT = 'USER_ABOUT';
 
 export const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS';
 export const LOAD_FRIENDS_POSTS = 'LOAD_FRIENDS_POSTS';
+export const LIKE_POST = 'LIKE_POST';

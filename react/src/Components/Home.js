@@ -13,26 +13,14 @@ const Wrap = styled.div`
 class Home extends Component {
   render() {
     const { posts } = this.props;
-    console.log(this.props);
     let renderPost = [];
     if (posts.posts) {
       for (let [key, value] of Object.entries(posts.posts)) {
-        console.log(key);
-        console.log(value);
         value.id = key;
         renderPost.push(value);
-        console.log(333, renderPost);
       }
     }
-    renderPost = renderPost.sort((a, b) => {
-      if (a.date < b.date) {
-        return 1;
-      } else if (a.date > b.date) {
-        return -1;
-      }
-      return 0;
-    });
-    console.log(444, renderPost);
+    renderPost = renderPost.sort((a, b) => b.date - a.date);
 
     return (
       <Wrap>
