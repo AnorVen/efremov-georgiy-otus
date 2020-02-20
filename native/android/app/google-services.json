@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "332928195450",
+    "firebase_url": "https://mytwitter-2f3e8.firebaseio.com",
+    "project_id": "mytwitter-2f3e8",
+    "storage_bucket": "mytwitter-2f3e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332928195450:android:58001457e23c015e35d4c3",
+        "android_client_info": {
+          "package_name": "com.native"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332928195450-fguflcga9f11b4njco06btpo1tpla6sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6RBpk0wNYsJhA55gE13G58qB7VpzS2aE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332928195450-fguflcga9f11b4njco06btpo1tpla6sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
