@@ -21,6 +21,12 @@ import {
 } from '../Constats';
 
 import {loadAllPost} from './posts';
+import {
+  removeToken,
+  saveEmail,
+  savePassword,
+  saveToken,
+} from '../utils/storage';
 
 export const requestUser = () => ({
   type: REQUEST_USER,
@@ -83,8 +89,7 @@ export const currentUser = () => (dispatch, getState) => {
   console.log(firebase.auth().currentUser);
 };
 export const logout = () => (dispatch, getState) => {
-  window.localStorage.removeItem('email');
-  window.localStorage.removeItem('password');
+  removeToken();
   firebase
     .auth()
     .signOut()
@@ -99,8 +104,7 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const login = ({email, password}) => (dispatch, getState) => {
-  window.localStorage.setItem('email', email);
-  window.localStorage.setItem('password', password);
+  saveToken({email, password});
   dispatch(requestUser());
   let store = getState();
   firebase
@@ -123,8 +127,7 @@ export const login = ({email, password}) => (dispatch, getState) => {
   });
 };
 export const createUser = ({email, password}) => (dispatch, getState) => {
-  window.localStorage.setItem('email', email);
-  window.localStorage.setItem('password', password);
+  saveToken({email, password});
 
   dispatch(requestUser());
   firebase
@@ -194,7 +197,7 @@ export const updateEmailUsers = email => (dispatch, getState) => {
     .updateEmail(email)
     .then(function() {
       // Update successful.
-      window.localStorage.setItem('email', email);
+      saveEmail(email);
       dispatch(reAuthenticate(user));
     })
     .catch(function(error) {
@@ -209,7 +212,7 @@ export const changePassword = newPassword => (dispatch, getState) => {
     .updatePassword(newPassword)
     .then(function() {
       // Update successful.
-      window.localStorage.setItem('password', newPassword);
+      savePassword(newPassword);
       dispatch(reAuthenticate(user));
     })
     .catch(function(error) {
@@ -233,8 +236,7 @@ export const reAuthenticate = user => (dispatch, getState) => {
 export const deleteUser = () => (dispatch, getState) => {
   dispatch(requestUser());
   var user = firebase.auth().currentUser;
-  window.localStorage.removeItem('email');
-  window.localStorage.removeItem('password');
+  removeToken();
   user
     .delete()
     .then(function() {

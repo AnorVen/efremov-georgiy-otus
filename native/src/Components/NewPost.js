@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addPost} from '../Actions/posts';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
+import {Text, TextInput, View, Image} from 'react-native';
 
-const PreveiwImage = styled.img`
+const PreveiwImage = styled.Image`
   max-width: 300px;
   height: auto;
   display: block;
   padding: 20px 0;
 `;
-const DragZone = styled.div`
+const DragZone = styled.View`
   height: 100px;
   width: 100%;
   background-color: green;
@@ -89,28 +90,26 @@ class NewPost extends Component {
   };
   render() {
     return (
-      <div>
-        {this.state.length}
-        <div>
-          <textarea
+      <View>
+        <Text>{this.state.length}</Text>
+        <View>
+          <TextInput
             value={this.state.text}
             name="newPost"
             id="newPost"
-            cols="30"
-            rows="5"
             onChange={text => this.newPostHandler(text)}
           />
-        </div>
-        <label htmlFor="loadFile">
-          выбирите файл для загрузки
-          <input
+        </View>
+        <View>
+          <Text htmlFor="loadFile">выбирите файл для загрузки</Text>
+          <TextInput
             id={'loadFile'}
             accept="image/*"
             type="file"
             ref={this.fileInput}
             onChange={() => this.fileHandler()}
           />
-        </label>
+        </View>
         <DragZone
           onDrop={e => this.dragHandler(e)}
           onDragOver={e => this.dragHandler(e)}>
@@ -122,7 +121,7 @@ class NewPost extends Component {
         )}
 
         <button onClick={() => this.btnHandler()}>Add new post</button>
-      </div>
+      </View>
     );
   }
 }

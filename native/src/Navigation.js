@@ -1,22 +1,27 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
-import Nav from './components/navigation';
-import List from './components/List';
-import Main from './pages/main';
-import LoginPage from './pages/login';
+import Main from './pages/homePage';
+import LoginPage from './pages/auth';
 import AuthLoadingScreen from './pages/AuthLoadingScreen';
-import More from './pages/More';
+import Profile from './pages/profile';
+import Explore from './pages/explore';
+import ErrorPage from './pages/404';
+import SearchFriends from './pages/SearchFriends';
+
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-const AuthenticatedStack = createStackNavigator({
+/*const AuthenticatedStack = createStackNavigator({
   Main: {
     screen: Main,
   },
-  More: {
-    screen: More,
+  Explore: {
+    screen: Explore,
   },
-});
+  Profile: {
+    screen: Profile,
+  },
+});*/
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -25,7 +30,7 @@ const AppNavigator = createSwitchNavigator(
       screen: LoginPage,
     },
     Root: {
-      screen: AuthenticatedStack,
+      screen: LoginPage, //AuthenticatedStack,
     },
   },
   {initialRouteName: 'AuthLoading'},

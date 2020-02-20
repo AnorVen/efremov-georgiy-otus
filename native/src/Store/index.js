@@ -2,7 +2,7 @@ import {createBrowserHistory} from 'history';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {routerMiddleware} from 'connected-react-router';
 import createRootReducer from '../Redusers';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import devToolsEnhancer from 'remote-redux-devtools';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
@@ -12,9 +12,7 @@ export default function configureStore(preloadedState) {
   const store = createStore(
     createRootReducer(history),
     preloadedState,
-    composeWithDevTools(
-      applyMiddleware(logger, thunk, routerMiddleware(history)),
-    ),
+    devToolsEnhancer(applyMiddleware(logger, thunk, routerMiddleware(history))),
   );
 
   // Hot reloading

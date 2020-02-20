@@ -1,15 +1,15 @@
 import React, {Component, memo} from 'react';
 import {connect} from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import {createSelector} from 'reselect';
-import {Link} from 'react-router-dom';
+import {Text, View} from 'react-native';
 
-const HeaderContent = styled.div`
+const HeaderContent = styled.View`
   height: 50px;
   background-color: #858585;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.View`
   margin: 0 auto;
   display: flex;
   max-width: 1200px;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `;
-const FlexRow = styled.div`
+const FlexRow = styled.View`
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -32,12 +32,20 @@ class Header extends Component {
     return (
       <HeaderContent>
         <Wrapper>
-          <p>Header</p>
+          <Text>Header</Text>
           <FlexRow>
-            <Link to={'/'}>Home</Link>
-            <Link to={'/auth'}>Auth</Link>
-            <Link to={'/explore'}>Explore</Link>
-            <Link to={'/profile'}>Profile</Link>
+            <Text onPress={() => this.props.navigator.navigate('Main')}>
+              Home
+            </Text>
+            <Text onPress={() => this.props.navigator.navigate('/Login')}>
+              Auth
+            </Text>
+            <Text onPress={() => this.props.navigator.navigate('/explore')}>
+              Explore
+            </Text>
+            <Text onPress={() => this.props.navigator.navigate('/profile')}>
+              Profile
+            </Text>
           </FlexRow>
         </Wrapper>
       </HeaderContent>

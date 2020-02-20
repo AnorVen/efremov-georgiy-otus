@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {connect} from 'react-redux';
 import NewPost from './NewPost';
 import Post from './Post';
+import {View} from 'react-native';
 
-const Wrap = styled.div`
+const Wrap = styled.View`
   width: 50%;
   padding: 0 30px;
   background-color: #b3a5ff;

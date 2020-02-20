@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -36,7 +35,7 @@ export default () => (
             modify it, edit the <code>404.html</code> file in your project's
             configured <code>public</code> directory.
           </Text>
-          <Button to={'/'} title={'Main Page'} />
+          <Text to={'/'}>Main Page</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

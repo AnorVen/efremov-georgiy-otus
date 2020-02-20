@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {connect} from 'react-redux';
 import {deletePost, likeAdd, likeDelete} from '../Actions/posts';
+import {Image, View, Text, FlatList, Button} from 'react-native';
 
-const PostImage = styled.img`
+const PostImage = styled.Image`
   max-width: 300px;
   height: auto;
   display: block;
   padding: 20px 0;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
   max-width: 100%;
   padding-bottom: 20px;
 `;
-const Name = styled.p`
+const Name = styled.Text`
   background-color: yellow;
 `;
 
@@ -83,32 +84,32 @@ class Post extends Component {
     console.log(newLikes);
     return (
       <Wrapper>
-        <p>
+        <Text>
           {date &&
             `${new Date(date).toLocaleDateString()} ${new Date(
               date,
             ).getHours()}:${new Date(date).getMinutes()}`}
-        </p>
+        </Text>
         {name && <Name>{name}</Name>}
         {!fileUrl && fileRead && <PostImage src={fileRead} alt="" />}
         {fileUrl && <PostImage src={fileUrl} alt="" />}
-        <p>{text && text}</p>
-        <p>likes: {newLikes.length}</p>
+        <Text>{text && text}</Text>
+        <Text>likes: {newLikes.length}</Text>
         {this.state.likeFlag ? (
-          <button onClick={() => this.likeDeleteHandler()}>-</button>
+          <Button onClick={() => this.likeDeleteHandler()}>-</Button>
         ) : (
-          <button onClick={() => this.likesAddHandler()}>+</button>
+          <Button onClick={() => this.likesAddHandler()}>+</Button>
         )}
 
         {!!newLikes.length && (
-          <ul>
-            {newLikes.map(item => (
-              <li key={item}>{item.name}</li>
-            ))}
-          </ul>
+          <FlatList
+            data={newLikes}
+            renderItem={({item}) => <Text key={item}>{item.name}</Text>}
+            keyExtractor={item => item.id}
+          />
         )}
         {userData.user.uid === uid && (
-          <button onClick={() => this.deletePostHandler()}>delete post</button>
+          <Button onClick={() => this.deletePostHandler()}>delete post</Button>
         )}
       </Wrapper>
     );

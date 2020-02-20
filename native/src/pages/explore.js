@@ -2,22 +2,23 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getAllUsers, addToFriends, loadFriendsPosts} from '../Actions/users';
 import Post from '../Components/Post';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
+import {Image, Text, View, Button} from 'react-native';
 
-const FriendsBlock = styled.div`
+const FriendsBlock = styled.View`
   display: flex;
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
 `;
-const FriendsItem = styled.div`
+const FriendsItem = styled.View`
   width: 150px;
   padding-bottom: 30px;
   padding-left: 10px;
   padding-right: 10px;
 `;
-const FriendsList = styled.div`
+const FriendsList = styled.View`
   display: flex;
   flex-direction: column;
   padding-right: 20px;
@@ -92,16 +93,16 @@ class Explore extends Component {
         return (
           <FriendsBlock>
             <FriendsList>
-              <p>my friends</p>
+              <Text>my friends</Text>
               {friendsArr.map((item, i) => (
                 <FriendsItem key={item.uid}>
-                  <p>{item.displayName}</p>
-                  <img width={150} src={item.photoURL || ''} alt="" />
+                  <Text>{item.displayName}</Text>
+                  <Image width={150} source={item.photoURL || ''} alt="" />
                 </FriendsItem>
               ))}
             </FriendsList>
             <FriendsPostsList>
-              <p>posts of my friends</p>
+              <Text>posts of my friends</Text>
               {friendsPostsArr.map((item, i) => (
                 <Post key={item.id} {...item} />
               ))}
@@ -112,22 +113,22 @@ class Explore extends Component {
     };
 
     return (
-      <div>
+      <View>
         friends list
         <FriendsBlock>
           {allUsersListArr.map(item => (
             <FriendsItem key={item.uid}>
-              <p>{item.displayName}</p>
-              <img width={150} src={item.photoURL} alt="" />
+              <Text>{item.displayName}</Text>
+              <Image width={150} source={item.photoURL} alt="" />
               <br />
-              <button onClick={() => this.addToFriendsHandler(item)}>
+              <Button onClick={() => this.addToFriendsHandler(item)}>
                 add to friends
-              </button>
+              </Button>
             </FriendsItem>
           ))}
         </FriendsBlock>
         {renderFriends()}
-      </div>
+      </View>
     );
   }
 }

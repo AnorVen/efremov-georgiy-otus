@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {login, logout, createUser, loginWithGoogle} from '../Actions/users';
 import {
-  login,
-  logout,
-  currentUser,
-  createUser,
-  loginWithGoogle,
-} from '../Actions/users';
+  Text,
+  TextInput,
+  View,
+  Button,
+  StyleSheet,
+  StatusBar,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Header from '../Containers/Header';
 
 class Login extends Component {
   state = {
@@ -43,9 +49,6 @@ class Login extends Component {
       password: e.target.value,
     });
   };
-  currentUser = () => {
-    this.props.currentUser();
-  };
   loginWithGoogle = () => {
     this.props.loginWithGoogle();
   };
@@ -54,55 +57,68 @@ class Login extends Component {
     const {user, loading, error} = this.props.userData;
     if (user.email) {
       return (
-        <div>
-          вы вошли с аккаута: {user.email}
-          {user.displayName && <p>Well come {user.displayName}</p>}
-          <div>
-            <button disabled={loading} onClick={() => this.props.logout()}>
-              logout
-            </button>
-          </div>
-        </div>
+        <>
+          <StatusBar barStyle="dark-content" />
+          <SafeAreaView>
+            <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+              <Header navigator={this.props.navigator} />
+              <View>
+                вы вошли с аккаута: {user.email}
+                {user.displayName && <p>Well come {user.displayName}</p>}
+                <View>
+                  <Button
+                    disabled={loading}
+                    onClick={() => this.props.logout()}
+                    title={'logout'}
+                  />
+                </View>
+              </View>
+            </ScrollView>
+          </SafeAreaView>
+        </>
       );
     }
     return (
-      <div>
-        {error.code && (
-          <div>
-            ERROR: {error.code}: {error.message}
-          </div>
-        )}
-        <p>email</p>
-        <input
-          value={this.state.email}
-          onChange={email => this.emailHandler(email)}
-          type="email"
-        />
-        <p>pass</p>
-        <input
-          value={this.state.password}
-          onChange={pass => this.passHandler(pass)}
-          type="password"
-        />
-        <button disabled={loading} onClick={() => this.loginHandler()}>
-          submit
-        </button>
-        <button disabled={loading} onClick={() => this.createUser()}>
-          create
-        </button>
-
-        <div>
-          <button disabled={loading} onClick={() => this.loginWithGoogle()}>
-            sign-in with google
-          </button>
-        </div>
-
-        <div>
-          <button disabled={loading} onClick={() => this.currentUser()}>
-            user
-          </button>
-        </div>
-      </div>
+      <>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
+            <View>
+              {error.code && (
+                <Text>
+                  ERROR: {error.code}: {error.message}
+                </Text>
+              )}
+              <Text>email</Text>
+              <TextInput
+                value={this.state.email}
+                onChange={email => this.emailHandler(email)}
+                type="email"
+              />
+              <Text>pass</Text>
+              <TextInput
+                value={this.state.password}
+                onChange={pass => this.passHandler(pass)}
+                type="password"
+              />
+              <Button
+                disabled={loading}
+                onClick={() => this.loginHandler()}
+                title={'submit'}
+              />
+              <Button
+                disabled={loading}
+                onClick={() => this.createUser()}
+                title={'create'}
+              />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </>
     );
   }
 }
@@ -119,8 +135,13 @@ export default connect(
       createUser: ({email, password}) =>
         dispatch(createUser({email, password})),
       logout: () => dispatch(logout()),
-      currentUser: () => dispatch(currentUser()),
       loginWithGoogle: () => dispatch(loginWithGoogle()),
     };
   },
 )(Login);
+
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: Colors.lighter,
+  },
+});

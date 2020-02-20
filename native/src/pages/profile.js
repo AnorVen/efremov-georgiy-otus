@@ -13,22 +13,23 @@ import {
   changePassword,
   updateUserAbout,
 } from '../Actions/users';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
+import {TextInput, View, Button, Text} from 'react-native';
 
-const PreveiwImage = styled.img`
+const PreveiwImage = styled.Image`
   max-width: 150px;
   height: auto;
   display: block;
   padding: 20px 0;
 `;
-const DragZone = styled.div`
+const DragZone = styled.View`
   height: 100px;
   width: 100%;
   background-color: green;
   margin: 10px 0;
 `;
 
-const Ava = styled.img`
+const Ava = styled.Image`
   width: 150px;
   display: block;
   padding: 0 20px;
@@ -154,28 +155,28 @@ class Profile extends Component {
     } = user;
 
     return (
-      <div>
+      <View>
         {displayName && <p>{displayName}</p>}
-        <input
+        <TextInput
           type="text"
           value={this.state.displayName}
           onChange={name => this.inputNameHandler(name)}
         />
-        <button onClick={() => this.btnNameHandler()}>set userName</button>
+        <Button onClick={() => this.btnNameHandler()}>set userName</Button>
 
         {photoURL && <Ava src={photoURL} alt="" />}
         {(!photoURL || isEdit) && (
           <>
-            <label htmlFor="loadFile">
-              выбирите файл для загрузки
-              <input
+            <View>
+              <Text htmlFor="loadFile">выбирите файл для загрузки</Text>
+              <TextInput
                 id={'loadFile'}
                 accept="image/*"
                 type="file"
                 ref={this.fileInput}
                 onChange={() => this.fileHandler()}
               />
-            </label>
+            </View>
             <DragZone
               onDrop={e => this.dragHandler(e)}
               onDragOver={e => this.dragHandler(e)}>
@@ -186,33 +187,33 @@ class Profile extends Component {
               <PreveiwImage src={this.state.fileDataReader} alt="" />
             )}
 
-            <button onClick={() => this.choseAvaHandler(uid)}>
+            <Button onClick={() => this.choseAvaHandler(uid)}>
               выбрать в качестве аватара
-            </button>
+            </Button>
           </>
         )}
-        {email && <p>{email}</p>}
-        <input
+        {email && <Text>{email}</Text>}
+        <TextInput
           type="email"
           value={this.state.email}
           onChange={email => this.emailHandlerInput(email)}
         />
-        <button
+        <Button
           onClick={() => {
             this.emailHandler();
           }}>
           change email
-        </button>
+        </Button>
         <br />
-        <input
+        <TextInput
           type="password"
           value={this.state.newPassword}
           onChange={pass => this.passwordHandlerInput(pass)}
         />
-        <button onClick={() => this.passwordHandler()}>change pass</button>
-        <p>last sing in {metadata.lastSignInTime}</p>
+        <Button onClick={() => this.passwordHandler()}>change pass</Button>
+        <Text>last sing in {metadata.lastSignInTime}</Text>
         {about && <p>{about}</p>}
-        <textarea
+        <TextInput
           name="about"
           id=""
           cols="30"
@@ -221,24 +222,21 @@ class Profile extends Component {
           onChange={text => this.aboutInputHandler(text)}
         />
 
-        <button onClick={() => this.aboutHandler()}>save about</button>
-        <br />
+        <Button onClick={() => this.aboutHandler()}>save about</Button>
         {/*<button onClick={() => this.editBtnHandler()}>edit</button>*/}
-        <br />
-        <button
+        <Button
           onClick={() => {
             this.logoutHandler();
           }}>
           logout
-        </button>
-        <br />
-        <button
+        </Button>
+        <Button
           onClick={() => {
             this.deleteUserHandler();
           }}>
           delete User
-        </button>
-      </div>
+        </Button>
+      </View>
     );
   }
 }

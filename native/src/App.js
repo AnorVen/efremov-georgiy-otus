@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {connect} from 'react-redux';
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import {ConnectedRouter} from 'connected-react-router';
 import Header from './Containers/Header';
@@ -29,13 +29,14 @@ import {
   getAllUsers,
 } from './Actions/users';
 import {fetchLike} from './Actions/posts';
+import {Text, View} from 'react-native';
 
-const Main = styled.div`
+const Main = styled.View`
   background-color: #eee;
   color: #000;
 `;
 
-const Content = styled.div`
+const Content = styled.View`
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -92,7 +93,7 @@ class App extends Component {
               </Content>
             </>
           ) : (
-            <>LOADING...</>
+            <Text>LOADING...</Text>
           )}
         </Main>
       </Router>
