@@ -14,8 +14,22 @@ import {
   updateUserAbout,
 } from '../Actions/users';
 import styled from 'styled-components/native';
-import {TextInput, View, Button, Text} from 'react-native';
-
+import {
+  TextInput,
+  View,
+  Button,
+  Text,
+  StatusBar,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: Colors.lighter,
+  },
+});
 const PreveiwImage = styled.Image`
   max-width: 150px;
   height: auto;
@@ -155,88 +169,101 @@ class Profile extends Component {
     } = user;
 
     return (
-      <View>
-        {displayName && <p>{displayName}</p>}
-        <TextInput
-          type="text"
-          value={this.state.displayName}
-          onChange={name => this.inputNameHandler(name)}
-        />
-        <Button onClick={() => this.btnNameHandler()}>set userName</Button>
-
-        {photoURL && <Ava src={photoURL} alt="" />}
-        {(!photoURL || isEdit) && (
-          <>
+      <>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
             <View>
-              <Text htmlFor="loadFile">выбирите файл для загрузки</Text>
+              {displayName && <p>{displayName}</p>}
               <TextInput
-                id={'loadFile'}
-                accept="image/*"
-                type="file"
-                ref={this.fileInput}
-                onChange={() => this.fileHandler()}
+                type="text"
+                value={this.state.displayName}
+                onChange={name => this.inputNameHandler(name)}
               />
+              <Button onClick={() => this.btnNameHandler()}>
+                set userName
+              </Button>
+
+              {photoURL && <Ava src={photoURL} alt="" />}
+              {(!photoURL || isEdit) && (
+                <>
+                  <View>
+                    <Text htmlFor="loadFile">выбирите файл для загрузки</Text>
+                    <TextInput
+                      id={'loadFile'}
+                      accept="image/*"
+                      type="file"
+                      ref={this.fileInput}
+                      onChange={() => this.fileHandler()}
+                    />
+                  </View>
+                  <DragZone
+                    onDrop={e => this.dragHandler(e)}
+                    onDragOver={e => this.dragHandler(e)}>
+                    место для драг енд дропа
+                  </DragZone>
+
+                  {this.state.fileDataReader && (
+                    <PreveiwImage src={this.state.fileDataReader} alt="" />
+                  )}
+
+                  <Button onClick={() => this.choseAvaHandler(uid)}>
+                    выбрать в качестве аватара
+                  </Button>
+                </>
+              )}
+              {email && <Text>{email}</Text>}
+              <TextInput
+                type="email"
+                value={this.state.email}
+                onChange={email => this.emailHandlerInput(email)}
+              />
+              <Button
+                onClick={() => {
+                  this.emailHandler();
+                }}>
+                change email
+              </Button>
+              <br />
+              <TextInput
+                type="password"
+                value={this.state.newPassword}
+                onChange={pass => this.passwordHandlerInput(pass)}
+              />
+              <Button onClick={() => this.passwordHandler()}>
+                change pass
+              </Button>
+              <Text>last sing in {metadata.lastSignInTime}</Text>
+              {about && <p>{about}</p>}
+              <TextInput
+                name="about"
+                id=""
+                cols="30"
+                rows="10"
+                value={this.state.about}
+                onChange={text => this.aboutInputHandler(text)}
+              />
+
+              <Button onClick={() => this.aboutHandler()}>save about</Button>
+              {/*<button onClick={() => this.editBtnHandler()}>edit</button>*/}
+              <Button
+                onClick={() => {
+                  this.logoutHandler();
+                }}>
+                logout
+              </Button>
+              <Button
+                onClick={() => {
+                  this.deleteUserHandler();
+                }}>
+                delete User
+              </Button>
             </View>
-            <DragZone
-              onDrop={e => this.dragHandler(e)}
-              onDragOver={e => this.dragHandler(e)}>
-              место для драг енд дропа
-            </DragZone>
-
-            {this.state.fileDataReader && (
-              <PreveiwImage src={this.state.fileDataReader} alt="" />
-            )}
-
-            <Button onClick={() => this.choseAvaHandler(uid)}>
-              выбрать в качестве аватара
-            </Button>
-          </>
-        )}
-        {email && <Text>{email}</Text>}
-        <TextInput
-          type="email"
-          value={this.state.email}
-          onChange={email => this.emailHandlerInput(email)}
-        />
-        <Button
-          onClick={() => {
-            this.emailHandler();
-          }}>
-          change email
-        </Button>
-        <br />
-        <TextInput
-          type="password"
-          value={this.state.newPassword}
-          onChange={pass => this.passwordHandlerInput(pass)}
-        />
-        <Button onClick={() => this.passwordHandler()}>change pass</Button>
-        <Text>last sing in {metadata.lastSignInTime}</Text>
-        {about && <p>{about}</p>}
-        <TextInput
-          name="about"
-          id=""
-          cols="30"
-          rows="10"
-          value={this.state.about}
-          onChange={text => this.aboutInputHandler(text)}
-        />
-
-        <Button onClick={() => this.aboutHandler()}>save about</Button>
-        {/*<button onClick={() => this.editBtnHandler()}>edit</button>*/}
-        <Button
-          onClick={() => {
-            this.logoutHandler();
-          }}>
-          logout
-        </Button>
-        <Button
-          onClick={() => {
-            this.deleteUserHandler();
-          }}>
-          delete User
-        </Button>
-      </View>
+          </ScrollView>
+        </SafeAreaView>
+      </>
     );
   }
 }

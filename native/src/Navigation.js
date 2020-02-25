@@ -11,7 +11,7 @@ import SearchFriends from './pages/SearchFriends';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-/*const AuthenticatedStack = createStackNavigator({
+const AuthenticatedStack = createStackNavigator({
   Main: {
     screen: Main,
   },
@@ -21,7 +21,7 @@ import {createStackNavigator} from 'react-navigation-stack';
   Profile: {
     screen: Profile,
   },
-});*/
+});
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -30,7 +30,7 @@ const AppNavigator = createSwitchNavigator(
       screen: LoginPage,
     },
     Root: {
-      screen: LoginPage, //AuthenticatedStack,
+      screen: AuthenticatedStack,
     },
   },
   {initialRouteName: 'AuthLoading'},

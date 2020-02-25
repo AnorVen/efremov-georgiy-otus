@@ -1,15 +1,16 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/database';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/storage';
+import '@react-native-firebase/database';
 
-const provider = new firebase.auth.GoogleAuthProvider();
+//const provider = new firebase.auth.GoogleAuthProvider();
 
 import {
   ADD_TO_FRIENDS,
   DELETE_USER,
   EDIT_USER,
   ERROR_REQUEST_USER,
+  GET_ALL_USERS,
   LOAD_ALL_USERS,
   LOAD_FRIENDS_POSTS,
   LOGIN,
@@ -65,7 +66,7 @@ export const logoutAction = () => ({
   type: LOGOUT,
 });
 
-export const loginWithGoogle = () => (dispatch, getState) => {
+/*export const loginWithGoogle = () => (dispatch, getState) => {
   firebase
     .auth()
     .signInWithPopup(provider)
@@ -83,7 +84,7 @@ export const loginWithGoogle = () => (dispatch, getState) => {
     .catch(function(error) {
       dispatch(errorRequestUser(error));
     });
-};
+};*/
 
 export const currentUser = () => (dispatch, getState) => {
   console.log(firebase.auth().currentUser);
@@ -313,6 +314,9 @@ export const getAllUsers = () => (dispatch, getState) => {
       const allUsers = (snapshot.val() && snapshot.val()) || {};
       dispatch(getAllUsersAction(allUsers));
     });
+  return {
+    type: GET_ALL_USERS,
+  };
 };
 
 export const addToFriends = friend => (dispatch, getState) => {

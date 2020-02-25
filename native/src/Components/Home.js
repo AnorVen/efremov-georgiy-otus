@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import styled from 'styled-components/native';
 import {connect} from 'react-redux';
 import NewPost from './NewPost';
 import Post from './Post';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
-const Wrap = styled.View`
-  width: 50%;
-  padding: 0 30px;
-  background-color: #b3a5ff;
-`;
-
+const styles = StyleSheet.create({
+  wrap: {
+    width: '50%',
+    padding: '0 30px',
+    backgroundColor: '#b3a5ff',
+  },
+});
 class Home extends Component {
   render() {
     const {posts} = this.props;
@@ -24,13 +24,24 @@ class Home extends Component {
     renderPost = renderPost.sort((a, b) => b.date - a.date);
 
     return (
-      <Wrap>
-        <NewPost />
-        {renderPost &&
-          renderPost.map((item, i) => {
-            return <Post key={item.date} {...item} />;
-          })}
-      </Wrap>
+      <View style={styles.wrap}>
+        <View>
+          <NewPost />
+        </View>
+
+        {renderPost && (
+          <View>
+            {' '}
+            {renderPost.map((item, i) => {
+              return (
+                <View>
+                  <Post key={item.date} {...item} />{' '}
+                </View>
+              );
+            })}
+          </View>
+        )}
+      </View>
     );
   }
 }

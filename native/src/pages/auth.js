@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {login, logout, createUser, loginWithGoogle} from '../Actions/users';
+import {login, logout, createUser} from '../Actions/users';
 import {
   Text,
   TextInput,
@@ -49,9 +49,9 @@ class Login extends Component {
       password: e.target.value,
     });
   };
-  loginWithGoogle = () => {
+  /*  loginWithGoogle = () => {
     this.props.loginWithGoogle();
-  };
+  };*/
 
   render() {
     const {user, loading, error} = this.props.userData;
@@ -65,8 +65,8 @@ class Login extends Component {
               style={styles.scrollView}>
               <Header navigator={this.props.navigator} />
               <View>
-                вы вошли с аккаута: {user.email}
-                {user.displayName && <p>Well come {user.displayName}</p>}
+                <Text>вы вошли с аккаута: {user.email}</Text>
+                {user.displayName && <Text>Well come {user.displayName}</Text>}
                 <View>
                   <Button
                     disabled={loading}
@@ -135,7 +135,7 @@ export default connect(
       createUser: ({email, password}) =>
         dispatch(createUser({email, password})),
       logout: () => dispatch(logout()),
-      loginWithGoogle: () => dispatch(loginWithGoogle()),
+      //loginWithGoogle: () => dispatch(loginWithGoogle()),
     };
   },
 )(Login);

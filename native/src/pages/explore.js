@@ -23,7 +23,7 @@ const FriendsList = styled.View`
   flex-direction: column;
   padding-right: 20px;
 `;
-const FriendsPostsList = styled.div`
+const FriendsPostsList = styled.View`
   width: 300px;
   padding-bottom: 30px;
   border-bottom: 1px solid red;

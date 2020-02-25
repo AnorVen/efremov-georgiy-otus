@@ -1,21 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {addPost} from '../Actions/posts';
-import styled from 'styled-components/native';
-import {Text, TextInput, View, Image} from 'react-native';
+import {Text, TextInput, View, Button, Image, StyleSheet} from 'react-native';
 
-const PreveiwImage = styled.Image`
-  max-width: 300px;
-  height: auto;
-  display: block;
-  padding: 20px 0;
-`;
-const DragZone = styled.View`
-  height: 100px;
-  width: 100%;
-  background-color: green;
-  margin: 10px 0;
-`;
+const styles = StyleSheet.create({
+  preveiwImage: {
+    maxWidth: 300,
+    height: 'auto',
+    padding: '20px 0',
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+});
+
 class NewPost extends Component {
   constructor() {
     super();
@@ -90,8 +87,10 @@ class NewPost extends Component {
   };
   render() {
     return (
-      <View>
-        <Text>{this.state.length}</Text>
+      <>
+        <View>
+          <Text>{this.state.length}</Text>
+        </View>
         <View>
           <TextInput
             value={this.state.text}
@@ -101,7 +100,7 @@ class NewPost extends Component {
           />
         </View>
         <View>
-          <Text htmlFor="loadFile">выбирите файл для загрузки</Text>
+          <Text>выбирите файл для загрузки</Text>
           <TextInput
             id={'loadFile'}
             accept="image/*"
@@ -110,18 +109,21 @@ class NewPost extends Component {
             onChange={() => this.fileHandler()}
           />
         </View>
-        <DragZone
-          onDrop={e => this.dragHandler(e)}
-          onDragOver={e => this.dragHandler(e)}>
-          место для драг енд дропа
-        </DragZone>
 
         {this.state.fileRead && (
-          <PreveiwImage src={this.state.fileRead} alt="" />
+          <View>
+            <Image
+              style={styles.preveiwImage}
+              source={this.state.fileRead}
+              alt=""
+            />{' '}
+          </View>
         )}
 
-        <button onClick={() => this.btnHandler()}>Add new post</button>
-      </View>
+        <View>
+          <Button onClick={() => this.btnHandler()} title="Add new post" />
+        </View>
+      </>
     );
   }
 }

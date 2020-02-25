@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 import {Provider} from 'react-redux';
 import Navigation from './src/Navigation';
-import * as firebase from 'firebase/app';
+import firebase from '@react-native-firebase/app';
 import configureStore from './src/Store';
 
 var firebaseConfig = {
@@ -28,9 +20,11 @@ firebase.initializeApp(firebaseConfig);
 const store = configureStore();
 
 const App = () => (
-  <Provider store={store}>
-    <Navigation />
-  </Provider>
+  <>
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  </>
 );
 
 export default App;

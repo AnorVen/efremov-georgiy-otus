@@ -1,7 +1,7 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/database';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/storage';
+import '@react-native-firebase/database';
 
 import {ADD_POST, DELETE_POST, LIKE_POST, LOADING_POSTS} from '../Constats';
 
