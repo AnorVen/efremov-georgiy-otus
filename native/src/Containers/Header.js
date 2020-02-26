@@ -3,37 +3,40 @@ import {connect} from 'react-redux';
 import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import {createSelector} from 'reselect';
-import {Text, View} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
-const HeaderContent = styled.View`
-  height: 50px;
-  background-color: #858585;
-`;
-const Wrapper = styled.View`
-  margin: 0 auto;
-  display: flex;
-  max-width: 1200px;
-  padding-left: 50px;
-  padding-right: 50px;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-const FlexRow = styled.View`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 50%;
-`;
+const styles = StyleSheet.create({
+  HeaderContent: {
+    padding: 10,
+    backgroundColor: '#858585',
+  },
+  Wrapper: {
+    display: 'flex',
+    maxWidth: '100%',
+    paddingLeft: 10,
+    paddingRight: 10,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  FlexRow: {
+    paddingTop: 10,
+    display: 'flex',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+  },
+});
 
 class Header extends Component {
   render() {
     console.log('Header render');
     return (
-      <HeaderContent>
-        <Wrapper>
+      <View style={styles.HeaderContent}>
+        <View style={styles.Wrapper}>
           <Text>Header</Text>
-          <FlexRow>
+          <View style={styles.FlexRow}>
             <Text onPress={() => this.props.navigator.navigate('Main')}>
               Home
             </Text>
@@ -46,9 +49,9 @@ class Header extends Component {
             <Text onPress={() => this.props.navigator.navigate('/profile')}>
               Profile
             </Text>
-          </FlexRow>
-        </Wrapper>
-      </HeaderContent>
+          </View>
+        </View>
+      </View>
     );
   }
 }

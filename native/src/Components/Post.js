@@ -96,9 +96,9 @@ class Post extends Component {
         <Text>{text && text}</Text>
         <Text>likes: {newLikes.length}</Text>
         {this.state.likeFlag ? (
-          <Button onClick={() => this.likeDeleteHandler()}>-</Button>
+          <Button onPress={() => this.likeDeleteHandler()} title="-" />
         ) : (
-          <Button onClick={() => this.likesAddHandler()}>+</Button>
+          <Button onPress={() => this.likesAddHandler()} title="+" />
         )}
 
         {!!newLikes.length && (
@@ -109,7 +109,10 @@ class Post extends Component {
           />
         )}
         {userData.user.uid === uid && (
-          <Button onClick={() => this.deletePostHandler()}>delete post</Button>
+          <Button
+            onPress={() => this.deletePostHandler()}
+            title="delete post"
+          />
         )}
       </Wrapper>
     );

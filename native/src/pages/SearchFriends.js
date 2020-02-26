@@ -11,7 +11,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
+    backgroundColor: '#e2e2e2',
   },
 });
 

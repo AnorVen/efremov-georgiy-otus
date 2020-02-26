@@ -102,12 +102,12 @@ export const logout = () => (dispatch, getState) => {
       // An error happened.
       dispatch(errorRequestUser(error));
     });
+  return {type: 'logout'};
 };
 
 export const login = ({email, password}) => (dispatch, getState) => {
   saveToken({email, password});
   dispatch(requestUser());
-  let store = getState();
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -121,15 +121,12 @@ export const login = ({email, password}) => (dispatch, getState) => {
       dispatch(loadUserAbout());
       dispatch(loadAllPost());
       dispatch(fetchFriends());
-    } else {
-      // User is signed out.
-      // ...
     }
   });
+  return {type: 'login'};
 };
 export const createUser = ({email, password}) => (dispatch, getState) => {
   saveToken({email, password});
-
   dispatch(requestUser());
   firebase
     .auth()
@@ -173,6 +170,7 @@ export const createUser = ({email, password}) => (dispatch, getState) => {
       // ...
     }
   });
+  return {type: 'createUser'};
 };
 
 export const updateUser = data => (dispatch, getState) => {
@@ -189,6 +187,7 @@ export const updateUser = data => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
       // An error happened.
     });
+  return {type: 'updateUser'};
 };
 
 export const updateEmailUsers = email => (dispatch, getState) => {
@@ -205,6 +204,7 @@ export const updateEmailUsers = email => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
       // An error happened.
     });
+  return {type: 'updateEmailUsers'};
 };
 export const changePassword = newPassword => (dispatch, getState) => {
   const user = firebase.auth().currentUser;
@@ -220,6 +220,7 @@ export const changePassword = newPassword => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
       // An error happened.
     });
+  return {type: ''};
 };
 export const reAuthenticate = user => (dispatch, getState) => {
   var credential;
@@ -233,6 +234,7 @@ export const reAuthenticate = user => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
       // An error happened.
     });
+  return {type: ''};
 };
 export const deleteUser = () => (dispatch, getState) => {
   dispatch(requestUser());
@@ -248,6 +250,7 @@ export const deleteUser = () => (dispatch, getState) => {
       dispatch(errorRequestUser(error));
       // An error happened.
     });
+  return {type: ''};
 };
 
 export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
@@ -270,6 +273,7 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
       console.error('Upload failed:', error);
       // [END onfailure]
     });
+  return {type: ''};
 };
 
 export const updateUserAbout = about => (dispatch, getState) => {
@@ -291,6 +295,7 @@ export const updateUserAbout = about => (dispatch, getState) => {
         }
       },
     );
+  return {type: ''};
 };
 
 export const loadUserAbout = () => (dispatch, getState) => {
@@ -303,6 +308,7 @@ export const loadUserAbout = () => (dispatch, getState) => {
       const userAbout = (snapshot.val() && snapshot.val().about) || '';
       dispatch(loadUserAboutAction(userAbout));
     });
+  return {type: ''};
 };
 
 export const getAllUsers = () => (dispatch, getState) => {
@@ -343,6 +349,7 @@ export const addToFriends = friend => (dispatch, getState) => {
         }
       },
     );
+  return {type: ''};
 };
 
 export const fetchFriends = () => (dispatch, getState) => {
@@ -374,4 +381,5 @@ export const loadFriendsPosts = () => (dispatch, getState) => {
         dispatch(loadFriendsPostsAction(friendsPosts));
       });
   }
+  return {type: ''};
 };

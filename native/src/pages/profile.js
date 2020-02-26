@@ -27,7 +27,8 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
+    backgroundColor: '#e2e2e2',
+    height: '100%',
   },
 });
 const PreveiwImage = styled.Image`
@@ -182,10 +183,10 @@ class Profile extends Component {
                 value={this.state.displayName}
                 onChange={name => this.inputNameHandler(name)}
               />
-              <Button onClick={() => this.btnNameHandler()}>
-                set userName
-              </Button>
-
+              <Button
+                onPress={() => this.btnNameHandler()}
+                title="set userName"
+              />
               {photoURL && <Ava src={photoURL} alt="" />}
               {(!photoURL || isEdit) && (
                 <>
@@ -209,9 +210,10 @@ class Profile extends Component {
                     <PreveiwImage src={this.state.fileDataReader} alt="" />
                   )}
 
-                  <Button onClick={() => this.choseAvaHandler(uid)}>
-                    выбрать в качестве аватара
-                  </Button>
+                  <Button
+                    onPress={() => this.choseAvaHandler(uid)}
+                    title=" выбрать в качестве аватара"
+                  />
                 </>
               )}
               {email && <Text>{email}</Text>}
@@ -221,20 +223,21 @@ class Profile extends Component {
                 onChange={email => this.emailHandlerInput(email)}
               />
               <Button
-                onClick={() => {
+                onPress={() => {
                   this.emailHandler();
-                }}>
-                change email
-              </Button>
+                }}
+                title="change email"
+              />
               <br />
               <TextInput
                 type="password"
                 value={this.state.newPassword}
                 onChange={pass => this.passwordHandlerInput(pass)}
               />
-              <Button onClick={() => this.passwordHandler()}>
-                change pass
-              </Button>
+              <Button
+                onPress={() => this.passwordHandler()}
+                title=" change pass"
+              />
               <Text>last sing in {metadata.lastSignInTime}</Text>
               {about && <p>{about}</p>}
               <TextInput
@@ -245,21 +248,23 @@ class Profile extends Component {
                 value={this.state.about}
                 onChange={text => this.aboutInputHandler(text)}
               />
-
-              <Button onClick={() => this.aboutHandler()}>save about</Button>
-              {/*<button onClick={() => this.editBtnHandler()}>edit</button>*/}
+              <Button onPress={() => this.aboutHandler()} title="save about" />
+              {/*<Button onPress={() => this.editBtnHandler()}
+              title="edit"/>
+              */}
               <Button
-                onClick={() => {
+                onPress={() => {
                   this.logoutHandler();
-                }}>
-                logout
-              </Button>
+                }}
+                title="logout"
+              />
               <Button
-                onClick={() => {
+                onPress={() => {
                   this.deleteUserHandler();
-                }}>
-                delete User
-              </Button>
+                }}
+                title="delete User"
+              />
+              >
             </View>
           </ScrollView>
         </SafeAreaView>

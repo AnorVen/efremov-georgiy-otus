@@ -20,6 +20,7 @@ class Login extends Component {
     password: '123123',
   };
   loginHandler = () => {
+    console.log(11);
     this.props.login({
       email: this.state.email,
       password: this.state.password,
@@ -70,7 +71,7 @@ class Login extends Component {
                 <View>
                   <Button
                     disabled={loading}
-                    onClick={() => this.props.logout()}
+                    onPress={() => this.props.logout()}
                     title={'logout'}
                   />
                 </View>
@@ -107,12 +108,12 @@ class Login extends Component {
               />
               <Button
                 disabled={loading}
-                onClick={() => this.loginHandler()}
+                onPress={() => this.loginHandler()}
                 title={'submit'}
               />
               <Button
                 disabled={loading}
-                onClick={() => this.createUser()}
+                onPress={() => this.createUser()}
                 title={'create'}
               />
             </View>
@@ -142,6 +143,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
+    backgroundColor: '#e2e2e2',
+    height: '100%',
   },
 });

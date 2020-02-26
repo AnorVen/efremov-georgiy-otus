@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
 });
-class AuthLoadingScreen extends React.Component {
+class AuthLoadingScreen extends Component {
   componentDidMount() {
     const getAllUsers = async () => {
       await this.props.getAllUsers();
@@ -27,14 +27,17 @@ class AuthLoadingScreen extends React.Component {
     getAllUsers().then();
     const userToken = async () => {
       const login = await loadToken();
-      await console.log(login);
-      if (login.email) {
+      await console.log(login.email);
+      if (!!login.email) {
         await this.props.login(login);
       }
+      return !!login.email;
     };
-    userToken().then(() => {
+    userToken().then(res => {
+      console.log(this.props.navigation);
+      console.log(userToken());
       setTimeout(() => {
-        this.props.navigation.navigate(userToken ? 'Root' : 'Login');
+        this.props.navigation.navigate(res ? 'Root' : 'Login');
       }, 1000);
     });
   }

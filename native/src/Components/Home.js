@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import NewPost from './NewPost';
 import Post from './Post';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 
 const styles = StyleSheet.create({
   wrap: {
-    width: '50%',
-    padding: '0 30px',
+    padding: 30,
     backgroundColor: '#b3a5ff',
   },
 });
@@ -29,16 +28,17 @@ class Home extends Component {
           <NewPost />
         </View>
 
-        {renderPost && (
+        {!!renderPost && (
           <View>
-            {' '}
-            {renderPost.map((item, i) => {
-              return (
+            <FlatList
+              data={renderPost}
+              renderItem={({item}) => (
                 <View>
-                  <Post key={item.date} {...item} />{' '}
+                  <Post key={item.date} {...item} />
                 </View>
-              );
-            })}
+              )}
+              keyExtractor={item => item.id}
+            />
           </View>
         )}
       </View>

@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
+  newPost: {
+    width: '100%',
+    backgroundColor: '#fff',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
 });
 
 class NewPost extends Component {
@@ -26,10 +32,11 @@ class NewPost extends Component {
   };
 
   newPostHandler = text => {
-    if (text.target.value && text.target.value.length <= 145) {
+    console.log(text);
+    if (text && text.length <= 145) {
       this.setState({
-        text: text.target.value,
-        length: text.target.value.length,
+        text: text,
+        length: text.length,
       });
     }
   };
@@ -69,6 +76,7 @@ class NewPost extends Component {
     }
   };
   btnHandler = () => {
+    console.log(this.state.text);
     if (!!this.state.text || !!this.state.file) {
       this.props.newPost({
         text: this.state.text || null,
@@ -87,43 +95,43 @@ class NewPost extends Component {
   };
   render() {
     return (
-      <>
+      <View>
         <View>
           <Text>{this.state.length}</Text>
         </View>
         <View>
           <TextInput
             value={this.state.text}
-            name="newPost"
-            id="newPost"
-            onChange={text => this.newPostHandler(text)}
+            style={styles.newPost}
+            onChangeText={text => this.newPostHandler(text)}
+            maxLength={145}
+            multiline
+            numberOfLines={4}
           />
         </View>
         <View>
           <Text>выбирите файл для загрузки</Text>
           <TextInput
-            id={'loadFile'}
             accept="image/*"
             type="file"
             ref={this.fileInput}
             onChange={() => this.fileHandler()}
           />
         </View>
-
-        {this.state.fileRead && (
+        {!!this.state.fileRead && (
           <View>
             <Image
               style={styles.preveiwImage}
               source={this.state.fileRead}
               alt=""
-            />{' '}
+            />
           </View>
         )}
 
         <View>
-          <Button onClick={() => this.btnHandler()} title="Add new post" />
+          <Button onPress={() => this.btnHandler()} title="Add new post" />
         </View>
-      </>
+      </View>
     );
   }
 }

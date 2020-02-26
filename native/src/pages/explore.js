@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getAllUsers, addToFriends, loadFriendsPosts} from '../Actions/users';
 import Post from '../Components/Post';
 import styled from 'styled-components/native';
-import {Image, Text, View, Button} from 'react-native';
+import {Image, Text, View, Button, FlatList} from 'react-native';
 
 const FriendsBlock = styled.View`
   display: flex;
@@ -94,18 +94,24 @@ class Explore extends Component {
           <FriendsBlock>
             <FriendsList>
               <Text>my friends</Text>
-              {friendsArr.map((item, i) => (
-                <FriendsItem key={item.uid}>
-                  <Text>{item.displayName}</Text>
-                  <Image width={150} source={item.photoURL || ''} alt="" />
-                </FriendsItem>
-              ))}
+              <FlatList
+                data={friendsArr}
+                renderItem={({item}) => (
+                  <FriendsItem>
+                    <Text>{item.displayName}</Text>
+                    <Image width={150} source={item.photoURL || ''} alt="" />
+                  </FriendsItem>
+                )}
+                keyExtractor={item => item.uid}
+              />
             </FriendsList>
             <FriendsPostsList>
               <Text>posts of my friends</Text>
-              {friendsPostsArr.map((item, i) => (
-                <Post key={item.id} {...item} />
-              ))}
+              <FlatList
+                data={friendsPostsArr}
+                renderItem={({item}) => <Post {...item} />}
+                keyExtractor={item => item.id}
+              />
             </FriendsPostsList>
           </FriendsBlock>
         );
@@ -116,16 +122,20 @@ class Explore extends Component {
       <View>
         friends list
         <FriendsBlock>
-          {allUsersListArr.map(item => (
-            <FriendsItem key={item.uid}>
-              <Text>{item.displayName}</Text>
-              <Image width={150} source={item.photoURL} alt="" />
-              <br />
-              <Button onClick={() => this.addToFriendsHandler(item)}>
-                add to friends
-              </Button>
-            </FriendsItem>
-          ))}
+          <FlatList
+            data={allUsersListArr}
+            renderItem={({item}) => (
+              <FriendsItem>
+                <Text>{item.displayName}</Text>
+                <Image width={150} source={item.photoURL} alt="" />
+                <Button
+                  onPress={() => this.addToFriendsHandler(item)}
+                  title="add to friends"
+                />
+              </FriendsItem>
+            )}
+            keyExtractor={item => item.uid}
+          />
         </FriendsBlock>
         {renderFriends()}
       </View>
