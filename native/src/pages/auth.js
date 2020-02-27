@@ -64,7 +64,7 @@ class Login extends Component {
             <ScrollView
               contentInsetAdjustmentBehavior="automatic"
               style={styles.scrollView}>
-              <Header navigator={this.props.navigator} />
+              <Header navigation={this.props.navigation} />
               <View>
                 <Text>вы вошли с аккаута: {user.email}</Text>
                 {user.displayName && <Text>Well come {user.displayName}</Text>}

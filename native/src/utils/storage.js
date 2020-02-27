@@ -36,6 +36,7 @@ export const removeToken = async () => {
 
 export const loadToken = async () => {
   try {
+    console.log(3);
     return {
       email: await AsyncStorage.getItem(EMAIL),
       password: await AsyncStorage.getItem(PASSWORD),

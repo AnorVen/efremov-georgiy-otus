@@ -1,8 +1,4 @@
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/auth';
-import '@react-native-firebase/storage';
-import '@react-native-firebase/database';
-
+import {fire} from '../../App';
 //const provider = new firebase.auth.GoogleAuthProvider();
 
 import {
@@ -67,7 +63,7 @@ export const logoutAction = () => ({
 });
 
 /*export const loginWithGoogle = () => (dispatch, getState) => {
-  firebase
+  fire
     .auth()
     .signInWithPopup(provider)
     .then(function(result) {
@@ -87,11 +83,11 @@ export const logoutAction = () => ({
 };*/
 
 export const currentUser = () => (dispatch, getState) => {
-  console.log(firebase.auth().currentUser);
+  console.log(fire.auth().currentUser);
 };
 export const logout = () => (dispatch, getState) => {
   removeToken();
-  firebase
+  fire
     .auth()
     .signOut()
     .then(function() {
@@ -108,14 +104,14 @@ export const logout = () => (dispatch, getState) => {
 export const login = ({email, password}) => (dispatch, getState) => {
   saveToken({email, password});
   dispatch(requestUser());
-  firebase
+  fire
     .auth()
     .signInWithEmailAndPassword(email, password)
     .catch(function(error) {
       // Handle Errors here.
       dispatch(errorRequestUser(error));
     });
-  firebase.auth().onAuthStateChanged(function(user) {
+  fire.auth().onAuthStateChanged(function(user) {
     if (user) {
       dispatch(loginAction(user));
       dispatch(loadUserAbout());
@@ -128,17 +124,17 @@ export const login = ({email, password}) => (dispatch, getState) => {
 export const createUser = ({email, password}) => (dispatch, getState) => {
   saveToken({email, password});
   dispatch(requestUser());
-  firebase
+  fire
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .catch(function(error) {
       dispatch(errorRequestUser(error));
     });
-  firebase.auth().onAuthStateChanged(function(user) {
+  fire.auth().onAuthStateChanged(function(user) {
     if (user) {
       dispatch(loginAction(user));
       const store = getState();
-      const {uid, displayName, photoURL} = firebase.auth().currentUser;
+      const {uid, displayName, photoURL} = fire.auth().currentUser;
       let allUsers = store.user.allUsersList;
       allUsers[uid] = {
         displayName,
@@ -152,7 +148,7 @@ export const createUser = ({email, password}) => (dispatch, getState) => {
         photoURL,
       };
 
-      firebase
+      fire
         .database()
         .ref()
         .update(updates, function(error) {
@@ -175,7 +171,7 @@ export const createUser = ({email, password}) => (dispatch, getState) => {
 
 export const updateUser = data => (dispatch, getState) => {
   dispatch(requestUser());
-  const user = firebase.auth().currentUser;
+  const user = fire.auth().currentUser;
 
   user
     .updateProfile(data)
@@ -191,7 +187,7 @@ export const updateUser = data => (dispatch, getState) => {
 };
 
 export const updateEmailUsers = email => (dispatch, getState) => {
-  const user = firebase.auth().currentUser;
+  const user = fire.auth().currentUser;
   dispatch(requestUser());
   user
     .updateEmail(email)
@@ -207,7 +203,7 @@ export const updateEmailUsers = email => (dispatch, getState) => {
   return {type: 'updateEmailUsers'};
 };
 export const changePassword = newPassword => (dispatch, getState) => {
-  const user = firebase.auth().currentUser;
+  const user = fire.auth().currentUser;
   dispatch(requestUser());
   user
     .updatePassword(newPassword)
@@ -238,7 +234,7 @@ export const reAuthenticate = user => (dispatch, getState) => {
 };
 export const deleteUser = () => (dispatch, getState) => {
   dispatch(requestUser());
-  var user = firebase.auth().currentUser;
+  var user = fire.auth().currentUser;
   removeToken();
   user
     .delete()
@@ -254,7 +250,7 @@ export const deleteUser = () => (dispatch, getState) => {
 };
 
 export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
-  const storageRef = firebase.storage().ref();
+  const storageRef = fire.storage().ref();
   storageRef
     .child(`avatars/${uid}`)
     .put(avatarImg, avatarImg.metadata)
@@ -277,8 +273,8 @@ export const choseAvaHandler = (avatarImg, uid) => (dispatch, getState) => {
 };
 
 export const updateUserAbout = about => (dispatch, getState) => {
-  const userId = firebase.auth().currentUser.uid;
-  firebase
+  const userId = fire.auth().currentUser.uid;
+  fire
     .database()
     .ref('usersAbout/' + userId)
     .set(
@@ -299,8 +295,8 @@ export const updateUserAbout = about => (dispatch, getState) => {
 };
 
 export const loadUserAbout = () => (dispatch, getState) => {
-  const userId = firebase.auth().currentUser.uid;
-  firebase
+  const userId = fire.auth().currentUser.uid;
+  fire
     .database()
     .ref('/usersAbout/' + userId)
     .once('value')
@@ -311,29 +307,29 @@ export const loadUserAbout = () => (dispatch, getState) => {
   return {type: ''};
 };
 
-export const getAllUsers = () => (dispatch, getState) => {
-  firebase
-    .database()
-    .ref('/users')
-    .once('value')
-    .then(function(snapshot) {
-      const allUsers = (snapshot.val() && snapshot.val()) || {};
-      dispatch(getAllUsersAction(allUsers));
-    });
-  return {
-    type: GET_ALL_USERS,
+export const getAllUsers = () => {
+  return (dispatch, getState) => {
+    return fire
+      .database()
+      .ref('/users')
+      .once('value')
+      .then(function(snapshot) {
+        const allUsers = (snapshot.val() && snapshot.val()) || {};
+        console.log(allUsers);
+        return dispatch(getAllUsersAction(allUsers));
+      });
   };
 };
 
 export const addToFriends = friend => (dispatch, getState) => {
   const friendUid = friend.uid;
-  const userId = firebase.auth().currentUser.uid;
+  const userId = fire.auth().currentUser.uid;
   dispatch(
     addToFriendsAction({
       [friendUid]: friend,
     }),
   );
-  firebase
+  fire
     .database()
     .ref('friends/' + userId)
     .update(
@@ -353,8 +349,8 @@ export const addToFriends = friend => (dispatch, getState) => {
 };
 
 export const fetchFriends = () => (dispatch, getState) => {
-  const userId = firebase.auth().currentUser.uid;
-  firebase
+  const userId = fire.auth().currentUser.uid;
+  fire
     .database()
     .ref(`/friends/${userId}`)
     .once('value')
@@ -371,7 +367,7 @@ export const loadFriendsPosts = () => (dispatch, getState) => {
   const friends = state.user.friends;
   let friendsPosts = {};
   for (let [key, val] of Object.entries(friends)) {
-    firebase
+    fire
       .database()
       .ref(`/user-posts/${key}`)
       .once('value')

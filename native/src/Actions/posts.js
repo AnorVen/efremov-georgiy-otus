@@ -1,7 +1,4 @@
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/auth';
-import '@react-native-firebase/storage';
-import '@react-native-firebase/database';
+import {fire} from '../../App';
 
 import {ADD_POST, DELETE_POST, LIKE_POST, LOADING_POSTS} from '../Constats';
 
@@ -17,8 +14,8 @@ export const loadAllPostsActiion = posts => ({
 });
 
 export const loadAllPost = () => (dispatch, getState) => {
-  const {uid} = firebase.auth().currentUser;
-  const starCountRef = firebase.database().ref(`user-posts/${uid}`);
+  const {uid} = fire.auth().currentUser;
+  const starCountRef = fire.database().ref(`user-posts/${uid}`);
   starCountRef.on('value', function(snapshot) {
     console.log(snapshot.val());
     dispatch(loadAllPostsActiion(snapshot.val()));
@@ -27,9 +24,9 @@ export const loadAllPost = () => (dispatch, getState) => {
 };
 
 export const addPost = post => (dispatch, getState) => {
-  const {uid, displayName} = firebase.auth().currentUser;
+  const {uid, displayName} = fire.auth().currentUser;
 
-  const newPostKey = firebase
+  const newPostKey = fire
     .database()
     .ref()
     .child('posts')
@@ -41,7 +38,7 @@ export const addPost = post => (dispatch, getState) => {
   let updates = {};
   if (post.file) {
     console.log(post.file);
-    const storageRef = firebase.storage().ref();
+    const storageRef = fire.storage().ref();
     storageRef
       .child(`imgs/${post.date}_${post.file.name}`)
       .put(post.file, post.file.metadata)
@@ -58,7 +55,7 @@ export const addPost = post => (dispatch, getState) => {
             updates['/posts/' + newPostKey] = post;
             updates['/user-posts/' + uid + '/' + newPostKey] = post;
 
-            firebase
+            fire
               .database()
               .ref()
               .update(updates, function(error) {
@@ -82,7 +79,7 @@ export const addPost = post => (dispatch, getState) => {
   } else {
     updates['/posts/' + newPostKey] = post;
     updates['/user-posts/' + uid + '/' + newPostKey] = post;
-    firebase
+    fire
       .database()
       .ref()
       .update(updates, function(error) {
@@ -101,12 +98,12 @@ export const addPost = post => (dispatch, getState) => {
 export const deletePostAction = id => ({type: DELETE_POST, payload: id});
 export const deletePost = id => (dispatch, getState) => {
   dispatch(deletePostAction(id));
-  const {uid, displayName} = firebase.auth().currentUser;
-  firebase
+  const {uid, displayName} = fire.auth().currentUser;
+  fire
     .database()
     .ref('/posts/' + id)
     .remove();
-  firebase
+  fire
     .database()
     .ref('/user-posts/' + uid + '/' + id)
     .remove();
@@ -115,7 +112,7 @@ export const deletePost = id => (dispatch, getState) => {
 export const likeAction = like => ({type: LIKE_POST, payload: like});
 
 export const fetchLike = () => (dispatch, getState) => {
-  firebase
+  fire
     .database()
     .ref('/likes/')
     .on('value', function(snapshot) {
@@ -126,7 +123,7 @@ export const fetchLike = () => (dispatch, getState) => {
 };
 export const likeAdd = like => (dispatch, getState) => {
   dispatch(likeAction(like));
-  let {uid, displayName = 'anonimLike'} = firebase.auth().currentUser;
+  let {uid, displayName = 'anonimLike'} = fire.auth().currentUser;
   const {id} = like;
   if (!displayName) {
     displayName = 'anonimLike';
@@ -134,7 +131,7 @@ export const likeAdd = like => (dispatch, getState) => {
   const likeToBD = {[uid]: displayName};
   const updates = {};
   updates['/likes/' + id] = likeToBD;
-  firebase
+  fire
     .database()
     .ref()
     .update(updates, function(error) {
@@ -151,9 +148,9 @@ export const likeAdd = like => (dispatch, getState) => {
 };
 export const likeDelete = like => (dispatch, getState) => {
   dispatch(likeAction(like));
-  const {uid} = firebase.auth().currentUser;
+  const {uid} = fire.auth().currentUser;
   const {id} = like;
-  firebase
+  fire
     .database()
     .ref(`/likes/${id}/${uid}`)
     .remove();

@@ -20,27 +20,24 @@ const styles = StyleSheet.create({
 });
 class AuthLoadingScreen extends Component {
   componentDidMount() {
-    const getAllUsers = async () => {
-      await this.props.getAllUsers();
-      await this.props.fetchLike();
-    };
-    getAllUsers().then();
-    const userToken = async () => {
-      const login = await loadToken();
-      await console.log(login.email);
-      if (!!login.email) {
-        await this.props.login(login);
-      }
-      return !!login.email;
-    };
-    userToken().then(res => {
-      console.log(this.props.navigation);
-      console.log(userToken());
-      setTimeout(() => {
-        this.props.navigation.navigate(res ? 'Root' : 'Login');
-      }, 1000);
-    });
+    console.log(1);
+    setTimeout(() => {
+      this._bootstrapAsync();
+    }, 300);
   }
+
+  _bootstrapAsync = async () => {
+    console.log(2);
+
+    const userToken = await loadToken();
+    console.log(userToken);
+    if (!!userToken.email) {
+      await this.props.login(login);
+    }
+    this.props.getAllUsers();
+    this.props.fetchLike();
+    this.props.navigation.navigate(userToken.email ? 'Main' : 'Login');
+  };
 
   render() {
     return (
