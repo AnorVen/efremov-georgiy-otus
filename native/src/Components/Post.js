@@ -5,9 +5,8 @@ import {deletePost, likeAdd, likeDelete} from '../Actions/posts';
 import {Image, View, Text, FlatList, Button} from 'react-native';
 
 const PostImage = styled.Image`
-  max-width: 300px;
-  height: auto;
-  display: block;
+  max-width: 50%;
+  height: 50%;
   padding: 20px 0;
 `;
 const Wrapper = styled.View`
@@ -91,8 +90,15 @@ class Post extends Component {
             ).getHours()}:${new Date(date).getMinutes()}`}
         </Text>
         {name && <Name>{name}</Name>}
-        {!fileUrl && fileRead && <PostImage src={fileRead} alt="" />}
-        {fileUrl && <PostImage src={fileUrl} alt="" />}
+        {!fileUrl && fileRead && <PostImage source={{uri: fileRead}} alt="" />}
+        {fileUrl && (
+          <PostImage
+            source={{
+              uri: fileUrl,
+            }}
+            alt=""
+          />
+        )}
         <Text>{text && text}</Text>
         <Text>likes: {newLikes.length}</Text>
         {this.state.likeFlag ? (

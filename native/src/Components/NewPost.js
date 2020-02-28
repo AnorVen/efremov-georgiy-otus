@@ -112,6 +112,7 @@ class NewPost extends Component {
         <View>
           <Text>выбирите файл для загрузки</Text>
           <TextInput
+            style={{backgroundColor: '#fff', margin: 5}}
             accept="image/*"
             type="file"
             ref={this.fileInput}

@@ -8,7 +8,7 @@ import {Image, Text, View, Button, FlatList} from 'react-native';
 const FriendsBlock = styled.View`
   display: flex;
   align-items: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
 `;
@@ -26,7 +26,9 @@ const FriendsList = styled.View`
 const FriendsPostsList = styled.View`
   width: 300px;
   padding-bottom: 30px;
-  border-bottom: 1px solid red;
+  border-bottom-width: 1px;
+  border-bottom-color: red;
+  border-style: solid;
 `;
 
 class Explore extends Component {
@@ -99,7 +101,11 @@ class Explore extends Component {
                 renderItem={({item}) => (
                   <FriendsItem>
                     <Text>{item.displayName}</Text>
-                    <Image width={150} source={item.photoURL || ''} alt="" />
+                    <Image
+                      width={150}
+                      source={{uri: item.photoURL || ''}}
+                      alt=""
+                    />
                   </FriendsItem>
                 )}
                 keyExtractor={item => item.uid}
@@ -120,14 +126,14 @@ class Explore extends Component {
 
     return (
       <View>
-        friends list
+        <Text>friends list</Text>
         <FriendsBlock>
           <FlatList
             data={allUsersListArr}
             renderItem={({item}) => (
               <FriendsItem>
                 <Text>{item.displayName}</Text>
-                <Image width={150} source={item.photoURL} alt="" />
+                <Image width={150} source={{uri: item.photoURL}} alt="" />
                 <Button
                   onPress={() => this.addToFriendsHandler(item)}
                   title="add to friends"

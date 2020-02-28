@@ -96,12 +96,14 @@ class Login extends Component {
               )}
               <Text>email</Text>
               <TextInput
+                style={{backgroundColor: '#fff', margin: 5}}
                 value={this.state.email}
                 onChange={email => this.emailHandler(email)}
                 type="email"
               />
               <Text>pass</Text>
               <TextInput
+                style={{backgroundColor: '#fff', margin: 5}}
                 value={this.state.password}
                 onChange={pass => this.passHandler(pass)}
                 type="password"

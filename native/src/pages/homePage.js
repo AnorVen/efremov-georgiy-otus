@@ -16,10 +16,10 @@ class HomePage extends Component {
       <>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
+          <Header {...this.props} />
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollView}>
-            <Header {...this.props} />
             <Home />
           </ScrollView>
         </SafeAreaView>
