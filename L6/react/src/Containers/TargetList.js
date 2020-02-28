@@ -33,7 +33,6 @@ class TargetList extends Component {
   };
 
   render() {
-    console.log('TargetList render');
     let arrOut = {};
     this.props.cityList.forEach(function(value) {
       if (!arrOut[value.country]) {
